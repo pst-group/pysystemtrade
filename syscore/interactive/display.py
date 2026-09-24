@@ -17,7 +17,7 @@ def print_with_landing_strips_around(str_to_match: str, strip: str = "*"):
 def landing_strip_around_string(str_to_match: str, strip: str = "*") -> str:
     """
     >>> landing_strip_around_string("abc", "x")
-    'xxx\nabc\nxxx'
+    'xxx\\nabc\\nxxx'
     """
     strip = landing_strip_from_str(str_to_match, strip=strip)
     return strip + "\n" + str_to_match + "\n" + strip

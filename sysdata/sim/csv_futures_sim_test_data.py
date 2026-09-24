@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime
 
 from sysdata.csv.csv_multiple_prices import csvFuturesMultiplePricesData
 from sysdata.csv.csv_adjusted_prices import csvFuturesAdjustedPricesData
@@ -15,6 +14,14 @@ from sysobjects.multiple_prices import futuresMultiplePrices
 from sysdata.sim.futures_sim_data_with_data_blob import genericBlobUsingFuturesSimData
 from syslogging.logger import *
 from syscore.dateutils import ARBITRARY_START
+
+# `syslogging.logger`'s own `import *` chain (via syslogging.adapter) leaks a
+# bare `datetime` module attribute with no `__all__` anywhere to stop it, so
+# `from syslogging.logger import *` above silently rebinds `datetime` to the
+# stdlib *module* - shadowing a `from datetime import datetime` class import
+# if that import appears earlier in the file, as it did here. Importing the
+# class *after* the wildcard import is what actually makes it win.
+from datetime import datetime
 
 
 class CsvFuturesSimTestData(genericBlobUsingFuturesSimData):
