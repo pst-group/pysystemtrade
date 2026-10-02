@@ -251,7 +251,11 @@ def extract_totals_from_fill_data(list_of_fills):
         fill_data_for_contract[4]
         for fill_data_for_contract in fill_data_by_contract.values()
     ]
-    commission_list = sum(commission_list_of_lists, [])
+    commission_list = (
+        None
+        if any(commission is None for commission in commission_list_of_lists)
+        else sum(commission_list_of_lists, [])
+    )
     signed_qty_dict = dict(
         [
             (contractid, fill_data_for_contractid[5])
@@ -301,10 +305,14 @@ def extract_totals_from_fill_data_for_contract_id(list_of_fills_for_contractid):
         signed_qty,
     ) = final_fill
 
-    commission = [
-        currencyValue(fill.commission_ccy, fill.commission)
-        for fill in list_of_fills_for_contractid
-    ]
+    commission = (
+        None
+        if any(fill.commission is None for fill in list_of_fills_for_contractid)
+        else [
+            currencyValue(fill.commission_ccy, fill.commission)
+            for fill in list_of_fills_for_contractid
+        ]
+    )
 
     return (
         broker_clientid,
@@ -477,8 +485,17 @@ def extract_single_fill(single_fill):
     is_bag_fill = single_fill.contract.secType == "BAG"
     if is_bag_fill:
         return None
-    commission = single_fill.commissionReport.commission
-    commission_ccy = single_fill.commissionReport.currency
+    report = single_fill.commissionReport
+    # ib_async creates an empty report with commission=0 before the callback.
+    # A matching report, including a genuine zero fee, is distinct from that.
+    commission = (
+        report.commission
+        if report.execId
+        and report.execId == single_fill.execution.execId
+        and report.currency
+        else None
+    )
+    commission_ccy = report.currency
     cum_qty = single_fill.execution.cumQty
     sign = sign_from_BOT_SEL(single_fill.execution.side)
     signed_qty = cum_qty * sign

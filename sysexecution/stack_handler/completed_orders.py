@@ -173,6 +173,19 @@ class stackHandlerForCompletions(stackHandlerCore):
                 # OK We can't do this unless all our children are filled
                 return False
 
+            broker_order = self.broker_stack.get_order_with_id_from_stack(
+                broker_order_id
+            )
+            if not broker_order.fill_equals_zero() and broker_order.commission is None:
+                # Keep ordinary completed fills available to the fill sweep until
+                # their commissions arrive. Explicit cleanup must remain possible.
+                if not (allow_partial_completions or allow_zero_completions):
+                    return False
+                self.log.warning(
+                    "Completing broker order with commission still unavailable",
+                    **broker_order.log_attributes(),
+                )
+
         return True
 
     def add_order_family_to_historic_orders_database(self, order_family: orderFamily):
