@@ -1308,6 +1308,14 @@ As we propagate orders down the stacks, from instrument, to contract, to broker 
 
 Once an order has executed, any fills will be applied to the broker order stored in the database. This is done by saving the broker order in memory to the stack, which now includes the execution details.
 
+For IB futures, the recorded price is the quantity-weighted mean of individual
+execution prices when those executions cover the cumulative filled quantity.
+This avoids losing precision in IB's reported average price. Each spread leg is
+calculated separately; the parent BAG fill is excluded. If executions are missing
+(for example after reconnecting), duplicated, being revised, or do not form a
+complete cumulative sequence, the existing IB average-price behavior is retained.
+This changes neither filled quantities nor the treatment of commissions.
+
 The code will then call code to fill the parent contract order.
 
 ### An aside, what happens if fills happen later?
