@@ -96,6 +96,9 @@ def merge_data_with_different_freq(
     list_of_data: List[Union[pd.DataFrame, pd.Series]]
 ) -> Union[pd.Series, pd.DataFrame]:
     """
+    Where items share a timestamp, the row from the later item in list_of_data wins,
+    so pass daily prices last to keep them over intraday bars at the closing time.
+
     >>> import datetime
     >>> d = datetime.datetime
     >>> date_index1 = [d(2000,1,1,23),d(2000,1,2,23),d(2000,1,3,23)]
@@ -110,6 +113,12 @@ def merge_data_with_different_freq(
     2000-01-02 23:00:00    5
     2000-01-03 23:00:00    6
     dtype: int64
+    >>> s3 = pd.Series([9], index=[d(2000,1,1,23)])
+    >>> merge_data_with_different_freq([s3, s1])
+    2000-01-01 23:00:00    3
+    2000-01-02 23:00:00    5
+    2000-01-03 23:00:00    6
+    dtype: int64
     """
 
     filtered = [item for item in list_of_data if len(item) > 0]
@@ -117,8 +126,10 @@ def merge_data_with_different_freq(
         return list_of_data[0]
     else:
         list_as_concat_pd = pd.concat(filtered, axis=0)
-    sorted_pd = list_as_concat_pd.sort_index()
-    unique_pd = uniquets(sorted_pd)
+    # stable sort keeps input order among equal timestamps, so the later item's row is
+    # last; take the whole row rather than the last non-null value in each column
+    sorted_pd = list_as_concat_pd.sort_index(kind="stable")
+    unique_pd = sorted_pd[~sorted_pd.index.duplicated(keep="last")]
 
     return unique_pd
 
