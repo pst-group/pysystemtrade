@@ -144,20 +144,20 @@ class ibOrdersClient(ibContractsClient):
 
         if order_type == market_order_type:
             ib_order = ibMarketOrder(ib_BS_str, ib_qty)
-        elif order_type is limit_order_type:
+        elif order_type == limit_order_type:
             if limit_price is None:
                 self.log.critical("Need to have limit price with limit order!")
                 return missing_order
             else:
                 ib_order = ibLimitOrder(ib_BS_str, ib_qty, limit_price)
-        elif order_type is stop_loss_order_type:
+        elif order_type == stop_loss_order_type:
             if limit_price is None:
                 self.log.critical("Need to have limit price with limit order!")
                 return missing_order
             else:
                 ib_order = ibStopOrder(ib_BS_str, ib_qty, limit_price)
 
-        elif order_type is snap_mkt_type:
+        elif order_type == snap_mkt_type:
             ## auxPrice is the offset so this will submit an order buy at the best offer, etc
             ## Works like a market order but works for instruments with no streaming data
             ib_order = ibOrder(
@@ -166,7 +166,7 @@ class ibOrdersClient(ibContractsClient):
                 totalQuantity=ib_qty,
                 auxPrice=0.0,
             )
-        elif order_type is snap_mid_type:
+        elif order_type == snap_mid_type:
             ## auxPrice is the offset so this will submit an order buy at the best offer, etc
             ## Works like a market order but works for instruments with no streaming data
             ib_order = ibOrder(
@@ -175,7 +175,7 @@ class ibOrdersClient(ibContractsClient):
                 totalQuantity=ib_qty,
                 auxPrice=0.0,
             )
-        elif order_type is snap_prim_type:
+        elif order_type == snap_prim_type:
             ## auxPrice is the offset so this will submit an order buy at the best offer, etc
             ## Works like a market order but works for instruments with no streaming data
             ib_order = ibOrder(
@@ -184,7 +184,7 @@ class ibOrdersClient(ibContractsClient):
                 totalQuantity=ib_qty,
                 auxPrice=0.0,
             )
-        elif order_type is adaptive_mkt_type:
+        elif order_type == adaptive_mkt_type:
             # Uses a black-box algo w/ stated aim of balancing execution speed & price
             # See https://investors.interactivebrokers.com/en/index.php?f=19091
             ib_order = ibMarketOrder(ib_BS_str, ib_qty)
