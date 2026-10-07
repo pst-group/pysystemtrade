@@ -349,8 +349,8 @@ def passive_roll_child_order(
     if new_position == 0 or sign_of_position_is_unchanged:
         # A reducing trade that we can do entirely in the current contract
         data.log.debug(
-            "Passive roll handling order %s, reducing trade, entire trade in next contract %s"
-            % (str(instrument_order), next_contract),
+            "Passive roll handling order %s, reducing trade, entire trade in current contract %s"
+            % (str(instrument_order), current_contract),
             **log_attrs,
         )
         return [contractIdAndTrade(current_contract, trade)]
