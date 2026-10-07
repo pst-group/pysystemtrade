@@ -233,9 +233,9 @@ def _check_if_process_status_is_okay_to_run(process_to_run: processToRun) -> boo
         return True
 
     else:
-        process_running.log.critical(
-            "Process control returned unknown object %s!" % str(okay_to_run)
-        )
+        error_msg = "Process control returned unknown object %s!" % str(okay_to_run)
+        process_to_run.log.critical(error_msg)
+        raise Exception(error_msg)
 
 
 def _is_it_time_to_run(process_to_run: processToRun) -> bool:
