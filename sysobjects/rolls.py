@@ -231,7 +231,7 @@ class rollParameters(object):
     def __eq__(self, other):
         return (
             (self.hold_rollcycle == other.hold_rollcycle)
-            & (self.priced_rollcycle == self.priced_rollcycle)
+            & (self.priced_rollcycle == other.priced_rollcycle)
             & (self.global_rollcycle == other.global_rollcycle)
             & (self.roll_offset_day == other.roll_offset_day)
             & (self.carry_offset == other.carry_offset)
