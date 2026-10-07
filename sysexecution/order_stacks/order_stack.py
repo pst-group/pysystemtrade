@@ -343,7 +343,7 @@ class orderStackData(object):
 
         existing_order = self.get_order_with_id_from_stack(order_id)
         if existing_order is missing_order:
-            error_msg = "Can't zero out non existent order" % order_id
+            error_msg = "Can't zero out non existent order %d" % order_id
             self.log.warning(error_msg)
             raise missingOrder(error_msg)
 
@@ -367,7 +367,7 @@ class orderStackData(object):
     def deactivate_order(self, order_id: int):
         existing_order = self.get_order_with_id_from_stack(order_id)
         if existing_order is missing_order:
-            error_msg = "Can't deactivate non existent order" % order_id
+            error_msg = "Can't deactivate non existent order %d" % order_id
             self.log.warning(error_msg)
             raise missingOrder(error_msg)
 
