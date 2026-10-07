@@ -123,6 +123,8 @@ class ibOrdersClient(ibContractsClient):
             order_type=order_type,
             limit_price=limit_price,
         )
+        if ib_order is missing_order:
+            return missing_order
 
         if what_if:
             order_object = self.ib.whatIfOrder(ibcontract, ib_order)
