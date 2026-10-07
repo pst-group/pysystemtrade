@@ -27,6 +27,9 @@ class tradeQuantity(list):
         return tradeQuantity([0] * len_self)
 
     def fill_less_than_or_equal_to_desired_trade(self, proposed_fill):
+        # zip() would ignore a missing leg and treat a short fill as valid
+        if len(proposed_fill) != len(self):
+            return False
         return all(
             [abs(x) <= abs(y) and x * y >= 0 for x, y in zip(proposed_fill, self)]
         )
@@ -42,6 +45,9 @@ class tradeQuantity(list):
         return all([sign(x) == sign(y) for x, y in zip(self, other)])
 
     def __eq__(self, other):
+        # zip() would treat [1, -1] as equal to [1], so a spread could look filled
+        if len(self) != len(other):
+            return False
         return all([x == y for x, y in zip(self, other)])
 
     def __sub__(self, other):
