@@ -27,7 +27,7 @@ class mongoIbBrokerClientIdData(ibBrokerClientIdData):
     def mongo_data(self):
         return self._mongo_data
 
-    def _repr__(self):
+    def __repr__(self):
         return "Tracking IB client IDs, mongodb %s" % (str(self.mongo_data))
 
     def _get_list_of_clientids(self) -> list:
