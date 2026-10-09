@@ -44,8 +44,9 @@ class stackHandlerForFills(stackHandlerForCompletions):
         if db_broker_order is missing_order:
             return None
 
-        if db_broker_order.fill_equals_desired_trade():
-            # No point
+        fully_filled = db_broker_order.fill_equals_desired_trade()
+        if fully_filled and db_broker_order.commission is not None:
+            # A completed quantity may still be waiting for its commission.
             # We don't log or we'd be spamming like crazy
             return None
 
@@ -62,6 +63,20 @@ class stackHandlerForFills(stackHandlerForCompletions):
                 method="temp",
             )
             return None
+
+        if fully_filled:
+            if matched_broker_order.commission is None:
+                return None
+            if matched_broker_order.fill != db_broker_order.fill:
+                self.log.warning(
+                    "Cannot refresh commission: broker fill differs from recorded fill",
+                    **db_broker_order.log_attributes(),
+                )
+                return None
+            # Only the fee was outstanding. Do not revise an already recorded
+            # fill's price, time or quantity while retrieving its commission.
+            db_broker_order.commission = matched_broker_order.commission
+            matched_broker_order = db_broker_order
 
         self.apply_broker_order_fills_to_database(
             broker_order_id=broker_order_id, broker_order=matched_broker_order

@@ -1310,6 +1310,18 @@ Once an order has executed, any fills will be applied to the broker order stored
 
 The code will then call code to fill the parent contract order.
 
+IB sends commission reports separately from execution details. Until every
+execution leg has a matching commission report, the broker order's commission is
+`None` (unavailable), not zero. Fills and positions are updated immediately, but
+normal order completion waits for the fee. The existing fill sweep continues
+refreshing that order's commission without changing its recorded fill price,
+quantity or time. A reported zero commission is valid and does not delay completion.
+
+Explicit partial/zero completion, including end-of-day cleanup, remains available.
+If it archives a filled order before the fee is available, it logs a warning and
+preserves `None`; it does not invent a zero fee or automatically repair that
+historical record later.
+
 ### An aside, what happens if fills happen later?
 
 Suppose we have an edge case when perhaps an order is cancelled before the fill is received, but then later the order is filled by the broker. The stack handler has already forgotten about this broker order and carelessly deleted the all important control object which we use to find out about fills when managing the order. This will cause a mismatch between our position and fill records, and reality. How will we know about the fill?
