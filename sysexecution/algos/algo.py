@@ -1,5 +1,6 @@
 from copy import copy
 from dataclasses import dataclass
+from math import isfinite
 
 from syscore.exceptions import missingContract, missingData
 from syscore.constants import arg_not_supplied
@@ -213,6 +214,17 @@ class Algo(object):
 
         else:
             raise Exception("Limit price from %s not known" % limit_price_from)
+
+        if (
+            limit_price_from
+            in (limit_price_from_side_price, limit_price_from_offside_price)
+            and contract_order.futures_contract.is_spread_contract()
+            and isfinite(limit_price)
+        ):
+            # Preserve a quoted spread price: a single leg's tick size can
+            # differ from the spread's, so rounding to it can invalidate the quote.
+            # Explicit input limits and non-finite values keep the existing path.
+            return limit_price
 
         limit_price_rounded = self.round_limit_price_to_tick_size(
             contract_order, limit_price
