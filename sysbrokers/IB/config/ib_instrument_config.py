@@ -184,9 +184,11 @@ def _get_relevant_config_rows_from_broker_instrument_identity_using_multiple_val
 def _get_relevant_config_rows_from_broker_instrument_identity_fields(
     config: IBconfig, ib_code: str, ib_multiplier: float, ib_exchange: str
 ) -> pd.Series:
+    # A blank IBMultiplier is a product whose multiplier varies by delivery
+    # month (eg TTF gas: the hours in the month), so it matches any multiplier
     config_rows = config[
         (config.IBSymbol == ib_code)
-        & (config.IBMultiplier == ib_multiplier)
+        & ((config.IBMultiplier == ib_multiplier) | config.IBMultiplier.isna())
         & (config.IBExchange == ib_exchange)
     ]
 
