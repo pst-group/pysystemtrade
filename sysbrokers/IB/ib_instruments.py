@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Union
 from ib_async import Future
 
 from sysobjects.instruments import futuresInstrument
@@ -23,12 +24,16 @@ class ibInstrumentConfigData:
 
     @property
     def effective_multiplier(self):
+        # A blank IBMultiplier means the product has no single multiplier (it
+        # varies by delivery month), so there is no effective one either
+        if self.ibMultiplier is NOT_REQUIRED_FOR_IB:
+            return NOT_REQUIRED_FOR_IB
         return self.ibMultiplier / self.priceMagnifier
 
     def __repr__(self):
         return (
             "symbol='%s', exchange='%s', currency='%s', ibMultiplier='%s', priceMagnifier='%.2f', "
-            "ignoreWeekly='%s', effective_multiplier='%.2f'"
+            "ignoreWeekly='%s', effective_multiplier='%s'"
             % (
                 self.symbol,
                 self.exchange,
@@ -36,7 +41,7 @@ class ibInstrumentConfigData:
                 self.ibMultiplier,
                 self.priceMagnifier,
                 self.ignoreWeekly,
-                self.effective_multiplier,
+                _format_effective_multiplier(self.effective_multiplier),
             )
         )
 
@@ -97,6 +102,12 @@ def ib_futures_instrument(
         ibcontract.currency = ib_data.currency
 
     return ibcontract
+
+
+def _format_effective_multiplier(effective_multiplier: Union[float, str]) -> str:
+    if effective_multiplier is NOT_REQUIRED_FOR_IB:
+        return effective_multiplier
+    return "%.2f" % effective_multiplier
 
 
 def _resolve_multiplier(multiplier_passed):
