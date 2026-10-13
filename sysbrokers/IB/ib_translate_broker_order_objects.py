@@ -1,10 +1,12 @@
 import datetime
+from math import fsum, isfinite
 
 
 from collections import namedtuple
 from dateutil.tz import tz
 
 from ib_async import Trade as ibTrade
+from ib_async.util import UNSET_DOUBLE
 from sysbrokers.IB.ib_contracts import ibcontractWithLegs, ibContract
 from sysbrokers.broker_trade import brokerTrade
 from syscore.exceptions import missingData
@@ -301,6 +303,10 @@ def extract_totals_from_fill_data_for_contract_id(list_of_fills_for_contractid):
         signed_qty,
     ) = final_fill
 
+    filled_price = get_filled_price_from_execution_prices(
+        list_of_fills_for_contractid, fallback_price=filled_price
+    )
+
     commission = [
         currencyValue(fill.commission_ccy, fill.commission)
         for fill in list_of_fills_for_contractid
@@ -314,6 +320,64 @@ def extract_totals_from_fill_data_for_contract_id(list_of_fills_for_contractid):
         commission,
         signed_qty,
     )
+
+
+def get_filled_price_from_execution_prices(fills, fallback_price):
+    """Prefer execution prices only when they cover the cumulative fill.
+
+    IB's cumulative average can lose precision. After a reconnect, however,
+    earlier executions may be missing, so averaging only the available prices
+    would be wrong. Keep the existing average for incomplete or ambiguous data;
+    this does not resolve execution corrections or alter quantities/commissions.
+    """
+    if not fills:
+        return fallback_price
+    ordered = sorted(fills, key=lambda fill: fill.cum_qty)
+    final_fill = ordered[-1]
+    direction = 1 if final_fill.signed_qty > 0 else -1
+    cumulative_quantity = 0
+    seen_executions = set()
+    for fill in ordered:
+        if not isinstance(fill.exec_id, str) or not fill.exec_id:
+            return fallback_price
+        # IB identifies revisions by changing the suffix after the last period.
+        # Do not count both versions as separate executions, even if their
+        # cumulative quantities happen to resemble a complete sequence.
+        execution_identity = fill.exec_id.rsplit(".", 1)[0]
+        if (
+            execution_identity in seen_executions
+            or fill.pending_price_revision
+            or (fill.client_id, fill.temp_id)
+            != (final_fill.client_id, final_fill.temp_id)
+        ):
+            return fallback_price
+        try:
+            valid_numbers = (
+                isfinite(fill.shares)
+                and fill.shares > 0
+                and isfinite(fill.cum_qty)
+                and fill.cum_qty > cumulative_quantity
+                and fill.cum_qty == cumulative_quantity + fill.shares
+                and fill.signed_qty == direction * fill.cum_qty
+                and isfinite(fill.price)
+                and fill.price != UNSET_DOUBLE
+            )
+        except (TypeError, ValueError, OverflowError):
+            return fallback_price
+        if not valid_numbers:
+            return fallback_price
+        cumulative_quantity = fill.cum_qty
+        seen_executions.add(execution_identity)
+
+    # Weight individual execution sizes, never the cumulative quantities.
+    # Normalized weights also avoid overflowing price * quantity.
+    try:
+        filled_price = fsum(
+            fill.price * (fill.shares / cumulative_quantity) for fill in ordered
+        )
+    except OverflowError:
+        return fallback_price
+    return filled_price if isfinite(filled_price) else fallback_price
 
 
 def extract_trade_info(placed_broker_trade_object):
@@ -505,6 +569,9 @@ def extract_single_fill(single_fill):
             "client_id",
             "signed_qty",
             "contract_id",
+            "shares",
+            "exec_id",
+            "pending_price_revision",
         ],
     )
 
@@ -519,6 +586,9 @@ def extract_single_fill(single_fill):
         client_id,
         signed_qty,
         contract_month,
+        single_fill.execution.shares,
+        single_fill.execution.execId,
+        single_fill.execution.pendingPriceRevision,
     )
 
     return single_fill
