@@ -1,4 +1,7 @@
 import datetime
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+from dateutil.tz import datetime_ambiguous, datetime_exists
 from ib_async import ContractDetails as ibContractDetails
 
 from sysdata.config.private_config import (
@@ -37,6 +40,23 @@ def get_trading_hours_from_contract_details(
 ) -> listOfTradingHours:
     try:
         time_zone_id = ib_contract_details.timeZoneId
+        production_config = get_production_config()
+        local_timezone = production_config.get_element_or_default(
+            "local_timezone", None
+        )
+        if local_timezone is not None:
+            if (
+                production_config.get_element_or_default("GMT_offset_hours", None)
+                is not None
+            ):
+                raise ValueError(
+                    "Set only one of local_timezone and GMT_offset_hours; "
+                    "remove GMT_offset_hours or set it to null to use local_timezone"
+                )
+            return _parse_trading_hours_with_timezones(
+                ib_contract_details.tradingHours, time_zone_id, local_timezone
+            )
+
         time_zone_adjustment = get_time_difference(time_zone_id)
 
         trading_hours_string = ib_contract_details.tradingHours
@@ -51,6 +71,90 @@ def get_trading_hours_from_contract_details(
 
 NO_ADJUSTMENTS = 0, 0
 CLOSED_ALL_DAY = object()
+
+
+def _parse_trading_hours_with_timezones(
+    trading_hours_string: str, source_timezone: str, local_timezone: str
+) -> listOfTradingHours:
+    source_zone = _get_trading_timezone(source_timezone)
+    local_zone = _get_trading_timezone(local_timezone)
+    opening_times = []
+    for day_record in trading_hours_string.split(";"):
+        if not day_record:
+            continue
+        day, sessions = day_record.split(":", 1)
+        if sessions == "CLOSED":
+            continue
+        datetime.datetime.strptime(day, "%Y%m%d")
+        for session in sessions.split(","):
+            start, end = session.split("-")
+            if ":" not in start:
+                start = "%s:%s" % (day, start)
+            opening = _parse_trading_time_in_timezone(start, source_zone)
+            closing = _parse_trading_time_in_timezone(end, source_zone)
+            if closing <= opening:
+                raise ValueError(
+                    "IB trading session must close after it opens: %s" % session
+                )
+
+            # Keep the conservative buffer in elapsed hours, including clock changes.
+            opening += datetime.timedelta(hours=1)
+            closing -= datetime.timedelta(hours=1)
+            if closing <= opening:
+                continue
+            opening_times.append(
+                tradingHours(
+                    _as_naive_trading_time(opening, local_zone),
+                    _as_naive_trading_time(closing, local_zone),
+                )
+            )
+
+    return listOfTradingHours(opening_times)
+
+
+def _get_trading_timezone(time_zone_id: str) -> ZoneInfo:
+    if not isinstance(time_zone_id, str) or not time_zone_id:
+        raise ValueError("Trading hours require an explicit IANA timezone")
+    if time_zone_id in ("EST", "CST", "MST", "PST"):
+        raise ValueError(
+            "Ambiguous timezone %s; use an explicit IANA timezone" % time_zone_id
+        )
+    try:
+        return ZoneInfo(time_zone_id)
+    except (ZoneInfoNotFoundError, ValueError) as error:
+        raise ValueError(
+            "Unknown trading-hours timezone %r; check the name and timezone data"
+            % time_zone_id
+        ) from error
+
+
+def _parse_trading_time_in_timezone(
+    phrase: str, time_zone: ZoneInfo
+) -> datetime.datetime:
+    local_time = datetime.datetime.strptime(phrase, "%Y%m%d:%H%M")
+    if local_time.strftime("%Y%m%d:%H%M") != phrase:
+        raise ValueError("Expected a dated IB trading time, got %r" % phrase)
+    return _unique_trading_time_in_utc(local_time, time_zone)
+
+
+def _unique_trading_time_in_utc(
+    local_time: datetime.datetime, time_zone: ZoneInfo
+) -> datetime.datetime:
+    aware_time = local_time.replace(tzinfo=time_zone)
+    if not datetime_exists(aware_time):
+        raise ValueError("Nonexistent trading time %s in %s" % (local_time, time_zone))
+    if datetime_ambiguous(aware_time):
+        raise ValueError("Ambiguous trading time %s in %s" % (local_time, time_zone))
+    return aware_time.astimezone(datetime.timezone.utc)
+
+
+def _as_naive_trading_time(
+    utc_time: datetime.datetime, time_zone: ZoneInfo
+) -> datetime.datetime:
+    local_time = utc_time.astimezone(time_zone).replace(tzinfo=None)
+    # Native local-naive comparisons cannot distinguish the two repeated-hour folds.
+    _unique_trading_time_in_utc(local_time, time_zone)
+    return local_time
 
 
 def parse_trading_hours_string(
@@ -110,15 +214,10 @@ def parse_phrase(
 
 
 def get_GMT_offset_hours():
-    # this needs to be in private_config.YAML
-    # where are the defaults stored that needs to be
-    # GMT_offset_hours = 0
-    try:
-        production_config = get_production_config()
-        GMT_offset_hours = production_config.GMT_offset_hours
-    except:
-        raise Exception("Default is zero, have it in private_config")
-    return GMT_offset_hours
+    GMT_offset_hours = get_production_config().get_element_or_default(
+        "GMT_offset_hours", None
+    )
+    return 0 if GMT_offset_hours is None else GMT_offset_hours
 
 
 def get_time_difference(time_zone_id: str) -> int:

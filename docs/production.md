@@ -2949,10 +2949,50 @@ The following are used when initialising the database with its initial configura
 
 ### Trading hours configuration
 
-The default trading hours config for IB is specified at: [sysbrokers/IB/ib_config_trading_hours.yaml](https://github.com/pst-group/pysystemtrade/blob/develop/sysbrokers/IB/ib_config_trading_hours.yaml). The default config assumes GMT. Anyone living anywhere else must do both of the following for production trading:
-- Update `GMT_offset_hours` in private config to your local timezone
+The default trading hours config for IB is specified at: [sysbrokers/IB/ib_config_trading_hours.yaml](https://github.com/pst-group/pysystemtrade/blob/develop/sysbrokers/IB/ib_config_trading_hours.yaml). The default config assumes GMT. Anyone living anywhere else must configure both the conversion of IB sessions and the saved trading windows:
+- Set `GMT_offset_hours` in private config to your local UTC offset, or explicitly select date-aware conversion as described below.
 - Copy the trading hours config into a new private config file at `private/private_config_trading_hours.yaml`, or if using a [custom private directory](#custom-private-directory), then `$PYSYS_PRIVATE_CONFIG_DIR/private_config_trading_hours.yaml`
-- Update the per-timezone trading hours. The simplest way to do that is to add (or subtract) your GMT offset from the default times. Keep in mind that the start time always has to be before the end time, which means in some cases you might want two sessions per day if the trading hours would span midnight. See the instrument-specific examples for how to configure multiple sessions per day.
+- Update the per-timezone trading hours to your intended local-clock policy. For initial setup, adding (or subtracting) your current GMT offset from the defaults gives their current local equivalents; this does not determine how the windows should change in other seasons. Keep in mind that the start time always has to be before the end time, which means in some cases you might want two sessions per day if the trading hours would span midnight. See the instrument-specific examples for how to configure multiple sessions per day.
+
+To convert each IB session using the timezone rules for its own date, set an
+explicit host timezone in `private_config.yaml`, for example:
+
+```yaml
+local_timezone: America/Los_Angeles
+```
+
+This must match the clock used by the PST process; it does not change the host
+timezone, cron, price timestamps or saved weekly restrictions. Remove
+`GMT_offset_hours` or set it to `null` when using `local_timezone`. Setting both
+is an error, even if the numeric offset is zero. This checks the final merged
+configuration, so clear conflicting values in inherited/private files too.
+When `local_timezone` is absent or `null`, the existing numeric-offset
+conversion remains in use. An absent or `null` `GMT_offset_hours` then means
+zero hours, preserving the legacy default. No change is needed for existing
+installations that only configure the numeric offset.
+
+The source timezone is IB's `timeZoneId`, not an inferred exchange timezone.
+Both zones must resolve through Python's `zoneinfo` using system timezone data
+or the `tzdata` package.
+Existing IANA names such as `US/Eastern`, `MET`, `Japan` and `Australia/NSW` work.
+Blank/unknown zones and ambiguous abbreviations such as `EST` are rejected;
+legacy parenthesized labels are not guessed or automatically rewritten.
+
+The named-zone path expects explicitly dated closing times (TWS 970+), retains
+separate comma-delimited sessions and `CLOSED` days, and keeps the one-hour
+inward buffer at each end, measured in elapsed time. Sessions no longer than
+two hours leave no permitted window. Nonexistent or ambiguous source times,
+and ambiguous buffered destination boundaries, are rejected rather than guessed.
+Saved restrictions still use their original IB timezone/instrument keys and
+remain local-clock policy: review their intended clock anchor instead of
+automatically shifting every window when DST changes.
+
+Native session caches and naive local timestamp interfaces are unchanged.
+Enable this option with execution stopped, restart affected clients and inspect
+effective hours before resuming execution: corrected conversion can shift the
+previously permitted window.
+This does not repair cache expiry or native remaining-hours arithmetic for
+a session spanning a host clock change.
 
 ## Capital
 

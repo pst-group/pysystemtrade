@@ -58,8 +58,10 @@ parquet_store: '/home/me/data/parquet'
 echo_extension: '.txt'
 # Spike checker
 max_price_spike: 8.0
-# Default get_GMT_offset_hours
-GMT_offset_hours: 0
+# Leave unset when local_timezone is set; otherwise null means zero hours
+GMT_offset_hours: null
+# Optional process timezone for date-aware IB sessions
+local_timezone: null
 # Behaviour of price filtering
 ignore_future_prices: True
 ignore_prices_with_zero_volumes_intraday: True
