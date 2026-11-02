@@ -5,11 +5,12 @@ We want to limit the number of trades we expect to do in a given period (usually
 Limits per contract don't make sense, but it makes sense to limit (a) the number of times a given instrument
    within a strategy can be traded and (b) the number of times an instrument can be traded, period.
 """
+
 from dataclasses import dataclass
 
 from syscore.exceptions import missingData
 from sysdata.base_data import baseData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from sysobjects.production.trade_limits import tradeLimit, listOfTradeLimits
 
 from sysobjects.production.tradeable_object import instrumentStrategy

@@ -9,7 +9,8 @@ from syscore.pandas.frequency import (
     resample_prices_to_business_day_index,
 )
 from sysdata.base_data import baseData
-from syslogging.logger import *
+from syslogging import STAGE_LOG_LABEL
+from syslogging.logger import get_logger
 from sysobjects.spot_fx_prices import fxPrices
 from sysobjects.instruments import instrumentCosts
 

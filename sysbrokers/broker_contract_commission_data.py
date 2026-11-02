@@ -2,7 +2,7 @@ from sysdata.futures.contracts import futuresContractData
 from sysdata.data_blob import dataBlob
 from sysobjects.contracts import futuresContract
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from sysobjects.spot_fx_prices import currencyValue
 
 

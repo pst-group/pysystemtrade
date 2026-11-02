@@ -4,7 +4,6 @@ import pandas as pd
 
 from syscore.exceptions import missingFile
 from syscore.fileutils import resolve_path_and_filename_for_package
-from syslogging.logger import *
 
 IB_CCY_CONFIG_FILE = resolve_path_and_filename_for_package(
     "sysbrokers.IB.config.ib_config_spot_FX.csv"

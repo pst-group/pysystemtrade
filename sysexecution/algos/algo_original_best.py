@@ -3,6 +3,7 @@ This is the original 'best execution' algo I used in my legacy system
 """
 
 import time
+from typing import Union
 from syscore.exceptions import missingData, marketClosed, orderCannotBeModified
 from sysexecution.orders.named_order_objects import missing_order
 
@@ -26,8 +27,6 @@ from sysexecution.orders.broker_orders import (
     brokerOrder,
 )
 from sysexecution.orders.contract_orders import best_order_type, contractOrder
-
-from syslogging.logger import *
 
 
 # Here are the algo parameters

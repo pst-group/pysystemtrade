@@ -51,7 +51,7 @@ def check_fx_ok_for_broker(data: dataBlob, fx_code: str):
 
     if fx_code not in list_of_codes_all:
         print(
-            "\n\n\ %s is not an FX code (valid codes: %s) \n\n"
+            "\n\n%s is not an FX code (valid codes: %s) \n\n"
             % (fx_code, list_of_codes_all)
         )
         raise Exception()

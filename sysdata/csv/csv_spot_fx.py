@@ -9,7 +9,8 @@ from syscore.fileutils import (
 )
 from syscore.constants import arg_not_supplied
 from syscore.pandas.pdutils import pd_readcsv, DEFAULT_DATE_FORMAT_FOR_CSV
-from syslogging.logger import *
+from syslogging import CURRENCY_CODE_LOG_LABEL
+from syslogging.logger import get_logger
 
 FX_PRICES_DIRECTORY = "data.futures.fx_prices_csv"
 

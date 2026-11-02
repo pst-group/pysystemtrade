@@ -1,6 +1,6 @@
 from sysdata.base_data import baseData
 from sysobjects.roll_calendars import rollCalendar
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 USE_CHILD_CLASS_ROLL_CALENDAR_ERROR = (
     "You need to use a child class of rollCalendarData"

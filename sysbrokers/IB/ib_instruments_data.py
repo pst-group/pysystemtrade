@@ -16,7 +16,7 @@ from syscore.exceptions import missingFile
 
 from sysdata.data_blob import dataBlob
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class ibFuturesInstrumentData(brokerFuturesInstrumentData):

@@ -94,9 +94,7 @@ class dataCapital(productionDataLayerGeneric):
         )
 
     def return_str_with_effect_of_delta_adjustment(self, capital_delta: float):
-        old_capital = (
-            self.total_capital_calculator.capital_data.get_current_broker_account_value()
-        )
+        old_capital = self.total_capital_calculator.capital_data.get_current_broker_account_value()
         new_capital = old_capital + capital_delta
         return "Old brokerage capital %f, adjustment %f, New capital %f" % (
             old_capital,

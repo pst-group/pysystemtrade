@@ -8,6 +8,7 @@ These are 'virtual' orders, because they are per instrument. We translate that t
 
 Desired virtual orders have to be labelled with the desired type: limit, market,best-execution
 """
+
 from collections import namedtuple
 
 from sysdata.data_blob import dataBlob

@@ -4,7 +4,7 @@ from sysdata.production.capital import capitalData
 CAPITAL_COLLECTION = "arctic_capital"
 
 from sysdata.arctic.arctic_connection import arcticData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 import pandas as pd
 
 

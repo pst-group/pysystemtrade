@@ -1,6 +1,6 @@
 from syscore.constants import arg_not_supplied
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from sysbrokers.IB.ib_connection_defaults import ib_defaults
 from sysdata.production.broker_client_id import brokerClientIdData

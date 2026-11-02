@@ -3,6 +3,7 @@ Created on 27 Nov 2015
 
 @author: rob
 """
+
 import unittest as ut
 
 import numpy as np

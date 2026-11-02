@@ -13,7 +13,7 @@ from sysobjects.adjusted_prices import futuresAdjustedPrices
 from sysobjects.multiple_prices import futuresMultiplePrices
 
 from sysdata.sim.futures_sim_data_with_data_blob import genericBlobUsingFuturesSimData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from syscore.dateutils import ARBITRARY_START
 
 

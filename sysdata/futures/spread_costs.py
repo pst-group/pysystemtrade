@@ -2,7 +2,7 @@
 ## Used to be in instrument config, now separate
 import pandas as pd
 from sysdata.base_data import baseData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class spreadCostData(baseData):

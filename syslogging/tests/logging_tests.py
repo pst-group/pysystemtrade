@@ -1,5 +1,7 @@
 import pytest
-from syslogging.logger import *
+import logging
+from syslogging import CURRENCY_CODE_LOG_LABEL
+from syslogging.logger import get_logger
 from sysobjects.contracts import futuresContract
 
 

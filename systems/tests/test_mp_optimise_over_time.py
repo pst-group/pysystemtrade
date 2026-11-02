@@ -3,6 +3,7 @@ Created on 09 Jan 2022
 
 @author: JLangle
 """
+
 import unittest
 from sysquant.optimisation.optimise_over_time import optimiseWeightsOverTime
 from sysquant.returns import returnsForOptimisation
@@ -61,8 +62,8 @@ class Test(unittest.TestCase):
         ).weights()
         stop_time2 = time()
 
-        print(f"Takes {stop_time1-start_time1} seconds with {n_threads} processes")
-        print(f"Takes {stop_time2-start_time2} seconds running in main process")
+        print(f"Takes {stop_time1 - start_time1} seconds with {n_threads} processes")
+        print(f"Takes {stop_time2 - start_time2} seconds running in main process")
 
         self.assertTrue(weights1.equals(weights2))
 

@@ -3,7 +3,7 @@ from sysdata.production.process_control_data import controlProcessData
 from syscore.constants import arg_not_supplied
 
 from sysdata.mongodb.mongo_generic import mongoDataWithSingleKey
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 PROCESS_CONTROL_COLLECTION = "process_control"
 PROCESS_CONTROL_KEY = "process_name"

@@ -1,4 +1,6 @@
-from typing import List
+import datetime
+
+from typing import List, Union
 from ib_async import IB, ContractDetails as ibContractDetails
 
 from sysbrokers.IB.ib_connection import connectionIB
@@ -14,7 +16,7 @@ from syscore.constants import arg_not_supplied
 from syscore.cache import Cache
 from syscore.exceptions import missingContract
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 # IB state that pacing violations only occur for bar sizes of less than 1 minute

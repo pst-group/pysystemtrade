@@ -3,7 +3,7 @@ from syscore.constants import arg_not_supplied
 from sysdata.production.temporary_close import temporaryCloseData
 from sysobjects.production.position_limits import positionLimitForInstrument
 from sysdata.mongodb.mongo_generic import mongoDataWithSingleKey
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 TEMPORARY_CLOSE_COLLECTION = "temporary_close_collection"
 KEY = "instrument_code"

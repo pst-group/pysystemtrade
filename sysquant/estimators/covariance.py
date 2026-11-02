@@ -65,8 +65,8 @@ def get_annualised_risk(
 
 
 def clean_values(std_dev: np.array, cmatrix: np.array, weights: np.array):
-    cmatrix[np.isnan(cmatrix)] = 1.0
-    weights[np.isnan(weights)] = 0.0
-    std_dev[np.isnan(std_dev)] = 100.0
+    cmatrix = np.where(np.isnan(cmatrix), 1.0, cmatrix)
+    weights = np.where(np.isnan(weights), 0.0, weights)
+    std_dev = np.where(np.isnan(std_dev), 100.0, std_dev)
 
     return std_dev, cmatrix, weights

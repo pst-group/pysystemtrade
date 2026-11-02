@@ -1,6 +1,7 @@
 """
 Copy from csv repo files to arctic for adjusted prices
 """
+
 from syscore.constants import arg_not_supplied
 
 from sysproduction.data.prices import diagPrices

@@ -33,7 +33,24 @@ from sysobjects.production.tradeable_object import instrumentStrategy
 from sysproduction.data.directories import get_csv_backup_directory, get_csv_dump_dir
 from sysproduction.data.strategies import get_list_of_strategies
 
-from sysproduction.data.production_data_objects import *
+from sysproduction.data.production_data_objects import (
+    get_class_for_data_type,
+    CAPITAL_DATA,
+    FUTURES_ADJUSTED_PRICE_DATA,
+    FUTURES_CONTRACT_PRICE_DATA,
+    FUTURES_MULTIPLE_PRICE_DATA,
+    FX_DATA,
+    STORED_SPREAD_DATA,
+    BROKER_HISTORIC_ORDERS_DATA,
+    CONTRACT_HISTORIC_ORDERS_DATA,
+    STRATEGY_HISTORIC_ORDERS_DATA,
+    CONTRACT_POSITION_DATA,
+    STRATEGY_POSITION_DATA,
+    FUTURES_CONTRACT_DATA,
+    OPTIMAL_POSITION_DATA,
+    ROLL_STATE_DATA,
+    HISTORIC_SPREAD_DATA,
+)
 
 
 def backup_db_to_csv():
@@ -156,9 +173,7 @@ def get_data_and_create_csv_directories(logname):
 
 # Futures contract data
 def backup_futures_contract_prices_to_csv(data, ignore_long_expired: bool = True):
-    instrument_list = (
-        data.db_futures_contract_price.get_list_of_instrument_codes_with_merged_price_data()
-    )
+    instrument_list = data.db_futures_contract_price.get_list_of_instrument_codes_with_merged_price_data()
     for instrument_code in instrument_list:
         backup_futures_contract_prices_for_instrument_to_csv(
             data=data,
@@ -409,9 +424,9 @@ def get_dict_of_strategy_capital(data: dataBlob) -> dict:
     strategy_list = get_list_of_strategies(data)
     strategy_capital_data = dict()
     for strategy_name in strategy_list:
-        strategy_capital_data[
-            strategy_name
-        ] = data.db_capital.get_capital_pd_df_for_strategy(strategy_name)
+        strategy_capital_data[strategy_name] = (
+            data.db_capital.get_capital_pd_df_for_strategy(strategy_name)
+        )
 
     return strategy_capital_data
 
@@ -429,9 +444,7 @@ def add_total_capital_to_strategy_capital_dict_return_df(
 
 
 def backup_optimal_positions(data):
-    strategy_instrument_list = (
-        data.db_optimal_position.get_list_of_instrument_strategies_with_optimal_position()
-    )
+    strategy_instrument_list = data.db_optimal_position.get_list_of_instrument_strategies_with_optimal_position()
 
     for instrument_strategy in strategy_instrument_list:
         try:

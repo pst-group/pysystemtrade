@@ -57,7 +57,7 @@ def check_instrument_ok_for_broker(data: dataBlob, instrument_code: str):
     diag_prices = diagPrices(data)
     list_of_codes_all = diag_prices.get_list_of_instruments_with_contract_prices()
     if instrument_code not in list_of_codes_all:
-        print("\n\n\ %s is not an instrument with price data \n\n" % instrument_code)
+        print("\n\n%s is not an instrument with price data \n\n" % instrument_code)
         raise Exception()
 
 

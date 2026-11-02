@@ -20,7 +20,12 @@ from sysexecution.orders.contract_orders import (
 )
 from sysexecution.orders.instrument_orders import instrumentOrder
 
-from syslogging.logger import *
+from syslogging import (
+    BROKER_ORDER_ID_LOG_LABEL,
+    CONTRACT_ORDER_ID_LOG_LABEL,
+    INSTRUMENT_CODE_LOG_LABEL,
+    STRATEGY_NAME_LOG_LABEL,
+)
 from sysobjects.production.tradeable_object import instrumentStrategy, futuresContract
 
 from syscore.genutils import (

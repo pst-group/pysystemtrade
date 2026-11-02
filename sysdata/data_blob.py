@@ -1,4 +1,4 @@
-import copy
+from copy import copy
 
 from sysbrokers.IB.ib_connection import connectionIB
 from syscore.objects import get_class_name
@@ -6,7 +6,8 @@ from syscore.constants import arg_not_supplied
 from syscore.text import camel_case_split
 from sysdata.config.production_config import get_production_config, Config
 from sysdata.mongodb.mongo_connection import mongoDb
-from syslogging.logger import *
+from syslogging import COMPONENT_LOG_LABEL
+from syslogging.logger import get_logger
 from sysdata.mongodb.mongo_IB_client_id import mongoIbBrokerClientIdData
 from sysdata.parquet.parquet_access import ParquetAccess
 

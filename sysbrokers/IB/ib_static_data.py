@@ -1,4 +1,4 @@
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from sysbrokers.IB.client.ib_client import ibClient
 from sysbrokers.IB.ib_connection import connectionIB
 from sysbrokers.broker_static_data import brokerStaticData

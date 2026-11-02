@@ -13,6 +13,7 @@ Use to analyse execution and also construct strategy/contract level p&l
 Doesn't have to reconcile with positions!
 
 """
+
 import datetime
 
 from syscore.constants import arg_not_supplied
@@ -27,7 +28,7 @@ from sysexecution.orders.list_of_orders import listOfOrders
 
 from sysobjects.production.tradeable_object import instrumentStrategy, futuresContract
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class genericOrdersData(baseData):

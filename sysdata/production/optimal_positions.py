@@ -8,6 +8,7 @@ A basic class is an optimal position with buffers around it.
 A mean reversion style class would include price buffers
 
 """
+
 import pandas as pd
 from syscore.exceptions import missingData
 from sysdata.base_data import baseData

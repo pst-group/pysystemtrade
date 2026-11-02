@@ -133,9 +133,7 @@ class diagPrices(productionDataLayerGeneric):
     def get_list_of_instruments_with_contract_prices(
         self, ignore_stale: bool = True
     ) -> list:
-        unique_list_of_instruments = (
-            self.db_futures_contract_price_data.get_list_of_instrument_codes_with_merged_price_data()
-        )
+        unique_list_of_instruments = self.db_futures_contract_price_data.get_list_of_instrument_codes_with_merged_price_data()
 
         if ignore_stale:
             unique_list_of_instruments = self.remove_stale_instruments(

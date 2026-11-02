@@ -1,5 +1,6 @@
 from syscore.objects import get_methods
-from syslogging.logger import *
+from syslogging import STAGE_LOG_LABEL
+from syslogging.logger import get_logger
 from systems.basesystem import System
 
 

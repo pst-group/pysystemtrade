@@ -6,7 +6,7 @@ Read and write data from mongodb for individual futures contracts
 from syscore.exceptions import missingData
 from sysdata.arctic.arctic_connection import arcticData
 from sysdata.production.optimal_positions import optimalPositionData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from sysobjects.production.tradeable_object import (
     instrumentStrategy,

@@ -9,7 +9,7 @@ from sysobjects.contracts import (
     key_contains_instrument_code,
     listOfFuturesContracts,
 )
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from sysdata.mongodb.mongo_generic import mongoDataWithSingleKey
 
 

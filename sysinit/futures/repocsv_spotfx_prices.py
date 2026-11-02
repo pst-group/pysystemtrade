@@ -3,6 +3,7 @@ Get FX prices from csv repo files and write to arctic
 
 WARNING WILL OVERWRITE EXISTING!
 """
+
 from sysdata.csv.csv_spot_fx import csvFxPricesData
 from sysproduction.data.currency_data import dataCurrency
 

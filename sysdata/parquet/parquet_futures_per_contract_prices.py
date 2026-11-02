@@ -8,7 +8,7 @@ from sysdata.futures.futures_per_contract_prices import (
 )
 from sysobjects.futures_per_contract_prices import futuresContractPrices
 from sysobjects.contracts import futuresContract
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 import pandas as pd

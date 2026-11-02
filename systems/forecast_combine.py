@@ -1530,9 +1530,7 @@ def _get_list_of_rules_from_config_for_instrument(
             rules = config.forecast_weights.keys()
     else:
         ## forecast weights not supplied as a config item, use the name of the rules
-        rules = (
-            forecast_combine_stage._get_list_of_all_trading_rules_from_forecasting_stage()
-        )
+        rules = forecast_combine_stage._get_list_of_all_trading_rules_from_forecasting_stage()
 
     return rules
 

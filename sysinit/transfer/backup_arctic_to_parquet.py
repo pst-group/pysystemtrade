@@ -171,9 +171,7 @@ def backup_adj_to_parquet_for_instrument(data: dataBlob, instrument_code: str):
 
 # Futures contract data
 def backup_futures_contract_prices_to_parquet(data):
-    instrument_list = (
-        data.arctic_futures_contract_price.get_list_of_instrument_codes_with_merged_price_data()
-    )
+    instrument_list = data.arctic_futures_contract_price.get_list_of_instrument_codes_with_merged_price_data()
     for instrument_code in instrument_list:
         backup_futures_contract_prices_for_instrument_to_parquet(
             data=data, instrument_code=instrument_code
@@ -461,9 +459,7 @@ def backup_capital(data):
 
 
 def backup_optimal_positions(data):
-    strategy_instrument_list = (
-        data.arctic_optimal_position.get_list_of_instrument_strategies_with_optimal_position()
-    )
+    strategy_instrument_list = data.arctic_optimal_position.get_list_of_instrument_strategies_with_optimal_position()
 
     for instrument_strategy in strategy_instrument_list:
         try:

@@ -143,9 +143,9 @@ class rollingAdjustedAndMultiplePrices(object):
         current_multiple_prices = getattr(self, "_current_multiple_prices", None)
         if current_multiple_prices is None:
             diag_prices = diagPrices(self.data)
-            current_multiple_prices = (
-                self._current_multiple_prices
-            ) = diag_prices.get_multiple_prices(self.instrument_code)
+            current_multiple_prices = self._current_multiple_prices = (
+                diag_prices.get_multiple_prices(self.instrument_code)
+            )
 
         return current_multiple_prices
 
@@ -154,9 +154,9 @@ class rollingAdjustedAndMultiplePrices(object):
         current_adjusted_prices = getattr(self, "_current_adjusted_prices", None)
         if current_adjusted_prices is None:
             diag_prices = diagPrices(self.data)
-            current_adjusted_prices = (
-                self._current_adjusted_prices
-            ) = diag_prices.get_adjusted_prices(self.instrument_code)
+            current_adjusted_prices = self._current_adjusted_prices = (
+                diag_prices.get_adjusted_prices(self.instrument_code)
+            )
 
         return current_adjusted_prices
 
@@ -164,13 +164,13 @@ class rollingAdjustedAndMultiplePrices(object):
     def updated_multiple_prices(self):
         updated_multiple_prices = getattr(self, "_updated_multiple_prices", None)
         if updated_multiple_prices is None:
-            updated_multiple_prices = (
-                self._updated_multiple_prices
-            ) = update_multiple_prices_on_roll(
-                self.data,
-                self.current_multiple_prices,
-                self.instrument_code,
-                allow_forward_fill=self.allow_forward_fill,
+            updated_multiple_prices = self._updated_multiple_prices = (
+                update_multiple_prices_on_roll(
+                    self.data,
+                    self.current_multiple_prices,
+                    self.instrument_code,
+                    allow_forward_fill=self.allow_forward_fill,
+                )
             )
 
         return updated_multiple_prices
@@ -179,10 +179,10 @@ class rollingAdjustedAndMultiplePrices(object):
     def new_adjusted_prices(self):
         new_adjusted_prices = getattr(self, "_new_adjusted_prices", None)
         if new_adjusted_prices is None:
-            new_adjusted_prices = (
-                self._new_adjusted_prices
-            ) = futuresAdjustedPrices.stitch_multiple_prices(
-                self.updated_multiple_prices
+            new_adjusted_prices = self._new_adjusted_prices = (
+                futuresAdjustedPrices.stitch_multiple_prices(
+                    self.updated_multiple_prices
+                )
             )
 
         return new_adjusted_prices

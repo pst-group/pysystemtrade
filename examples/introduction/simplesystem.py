@@ -3,6 +3,7 @@ Let's recap:
 
 We got some data and created a trading rule
 """
+
 from sysdata.sim.csv_futures_sim_data import csvFuturesSimData
 
 data = csvFuturesSimData()

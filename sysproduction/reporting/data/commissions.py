@@ -183,9 +183,7 @@ DIFF_COLUMN = "diff"
 
 def get_instrument_list(data: dataBlob) -> list:
     db = dataBroker(data)
-    list_of_instruments = (
-        db.broker_futures_contract_price_data.get_list_of_instrument_codes_with_merged_price_data()
-    )
+    list_of_instruments = db.broker_futures_contract_price_data.get_list_of_instrument_codes_with_merged_price_data()
 
     return list_of_instruments
 
@@ -195,10 +193,10 @@ def get_current_configured_block_costs(
 ) -> Dict[str, currencyValue]:
     block_costs_from_config = {}
     for instrument_code in list_of_instrument_codes:
-        block_costs_from_config[
-            instrument_code
-        ] = get_configured_block_cost_for_instrument(
-            data=data, instrument_code=instrument_code
+        block_costs_from_config[instrument_code] = (
+            get_configured_block_cost_for_instrument(
+                data=data, instrument_code=instrument_code
+            )
         )
 
     return block_costs_from_config

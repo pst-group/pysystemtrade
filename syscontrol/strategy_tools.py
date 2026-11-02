@@ -1,7 +1,7 @@
 from copy import copy
 from syscore.objects import resolve_function
 from sysdata.data_blob import dataBlob
-from syslogging.logger import *
+from syslogging import STRATEGY_NAME_LOG_LABEL
 from sysproduction.data.control_process import get_strategy_class_object_config
 
 

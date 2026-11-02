@@ -1007,9 +1007,7 @@ class Portfolio:
             + (low_vol_std**2)
             - (2 * high_vol_std * low_vol_std * correlation)
         )
-        b_value = (2 * high_vol_std * low_vol_std * correlation) - 2 * (
-            low_vol_std**2
-        )
+        b_value = (2 * high_vol_std * low_vol_std * correlation) - 2 * (low_vol_std**2)
         c_value = (low_vol_std**2) - (risk_target_std**2)
 
         # standard formula for solving a quadratic
@@ -1324,7 +1322,7 @@ def get_avg_corr(sigma):
 
     avg_corr = np.nanmean(new_sigma)
 
-    return avg_corr
+    return avg_corr.item()
 
 
 def cluster_correlation_matrix(corr_matrix: np.array, max_cluster_size=3) -> list:

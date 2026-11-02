@@ -1,6 +1,7 @@
 """
 Low level calculations that don't fit anywhere else
 """
+
 import math as maths
 
 import numpy as np

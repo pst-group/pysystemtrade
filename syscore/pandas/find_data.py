@@ -47,7 +47,7 @@ def get_row_of_series(
         except KeyError:
             raise Exception("Date %s not found in data" % str(relevant_date))
 
-    return data_at_date
+    return data_at_date.item()
 
 
 def get_row_of_series_before_date(
@@ -67,7 +67,7 @@ def get_row_of_series_before_date(
         index_point = get_max_index_before_datetime(series.index, relevant_date)
         data_at_date = series.values[index_point]
 
-    return data_at_date
+    return data_at_date.item()
 
 
 def get_max_index_before_datetime(

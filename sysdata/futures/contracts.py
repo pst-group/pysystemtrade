@@ -5,7 +5,8 @@ from sysobjects.contract_dates_and_expiries import listOfContractDateStr
 
 USE_CHILD_CLASS_ERROR = "You need to use a child class of futuresContractData"
 
-from syslogging.logger import *
+from syslogging import CONTRACT_DATE_LOG_LABEL, INSTRUMENT_CODE_LOG_LABEL
+from syslogging.logger import get_logger
 
 
 class futuresContractData(baseData):

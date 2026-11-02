@@ -1,7 +1,7 @@
 from syscore.exceptions import missingData
 from sysdata.parquet.parquet_access import ParquetAccess
 from sysdata.production.optimal_positions import optimalPositionData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from sysobjects.production.tradeable_object import (
     instrumentStrategy,

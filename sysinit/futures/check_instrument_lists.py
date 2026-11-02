@@ -3,6 +3,7 @@ This little utility allows you to keep up with your various sets of instruments,
 big load of instruments in one go as is my wont
 
 """
+
 import pandas as pd
 from syscore.interactive.progress_bar import progressBar
 from sysproduction.data.prices import diagPrices

@@ -15,7 +15,7 @@ from sysproduction.strategy_code.run_system_classic import (
 from sysproduction.data.contracts import dataContracts
 from sysproduction.data.optimal_positions import dataOptimalPositions
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from systems.basesystem import System
 

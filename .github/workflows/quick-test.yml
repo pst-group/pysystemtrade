@@ -12,22 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ 3.10.13 ]
+        python-version: [ "3.12" ]
 
     steps:
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+    - name: Install uv and setup Python
+      uses: astral-sh/setup-uv@v7
       with:
+        version: "0.12.23"
         python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip setuptools
-        python -m pip install '.[dev]'
+        uv sync --extra dev --extra parquet --extra flask 
 
     - name: Test with pytest
       run: |
-        pytest --junit-xml=tests.xml
+        uv run pytest

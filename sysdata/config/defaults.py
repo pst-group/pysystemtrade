@@ -6,6 +6,7 @@ Order of preferences is - passed in command line to calculation method,
                           found in defaults
 
 """
+
 from syscore.fileutils import resolve_path_and_filename_for_package
 from syscore.constants import arg_not_supplied
 import yaml

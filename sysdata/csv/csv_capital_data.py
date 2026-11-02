@@ -1,7 +1,7 @@
 from sysdata.production.capital import capitalData
 from syscore.fileutils import resolve_path_and_filename_for_package
 from syscore.constants import arg_not_supplied
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 DATE_INDEX_NAME = "DATETIME"
 

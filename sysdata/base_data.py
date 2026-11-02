@@ -1,4 +1,4 @@
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class baseData(object):

@@ -4,8 +4,7 @@ from syscore.constants import arg_not_supplied
 from syscore.dateutils import WEEKS_IN_YEAR
 
 
-from sysquant.estimators.correlations import correlationEstimate
-from sysquant.optimisation.optimisers.handcraft import *
+from sysquant.optimisation.optimisers.handcraft import handcraftPortfolio
 from sysquant.estimators.estimates import (
     Estimates,
     meanEstimates,

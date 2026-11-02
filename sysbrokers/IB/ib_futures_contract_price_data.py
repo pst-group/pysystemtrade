@@ -16,7 +16,7 @@ from sysexecution.trade_qty import tradeQuantity
 from sysobjects.futures_per_contract_prices import futuresContractPrices
 from sysobjects.contracts import futuresContract, listOfFuturesContracts
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class ibTickerObject(tickerObject):

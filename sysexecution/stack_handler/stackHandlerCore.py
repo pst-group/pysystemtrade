@@ -4,6 +4,7 @@ Stack handler is a giant object, so we split it up into files/classes
 This 'core' is inherited by all the other classes and just initialises, plus does some common functions
 
 """
+
 from collections import namedtuple
 from syscore.constants import arg_not_supplied, success, failure
 

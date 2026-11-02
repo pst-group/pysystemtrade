@@ -233,9 +233,7 @@ class diagPositions(productionDataLayerGeneric):
         return instrument_list
 
     def get_list_of_instruments_with_current_positions(self) -> list:
-        instrument_list = (
-            self.db_contract_position_data.get_list_of_instruments_with_current_positions()
-        )
+        instrument_list = self.db_contract_position_data.get_list_of_instruments_with_current_positions()
 
         return instrument_list
 
@@ -249,16 +247,12 @@ class diagPositions(productionDataLayerGeneric):
     def get_list_of_strategies_and_instruments_with_positions(
         self,
     ) -> listOfInstrumentStrategies:
-        return (
-            self.db_strategy_position_data.get_list_of_strategies_and_instruments_with_positions()
-        )
+        return self.db_strategy_position_data.get_list_of_strategies_and_instruments_with_positions()
 
     def get_all_current_contract_positions_with_db_expiries(
         self,
     ) -> listOfContractPositions:
-        list_of_current_positions = (
-            self.db_contract_position_data.get_all_current_positions_as_list_with_contract_objects()
-        )
+        list_of_current_positions = self.db_contract_position_data.get_all_current_positions_as_list_with_contract_objects()
         list_of_current_positions_with_expiries = (
             self.update_expiries_for_position_list(list_of_current_positions)
         )
@@ -266,9 +260,7 @@ class diagPositions(productionDataLayerGeneric):
         return list_of_current_positions_with_expiries
 
     def get_all_current_contract_positions(self) -> listOfContractPositions:
-        list_of_current_positions = (
-            self.db_contract_position_data.get_all_current_positions_as_list_with_contract_objects()
-        )
+        list_of_current_positions = self.db_contract_position_data.get_all_current_positions_as_list_with_contract_objects()
 
         return list_of_current_positions
 
@@ -319,9 +311,7 @@ class diagPositions(productionDataLayerGeneric):
     def get_all_current_strategy_instrument_positions(
         self,
     ) -> listOfInstrumentStrategyPositions:
-        list_of_current_positions = (
-            self.db_strategy_position_data.get_all_current_positions_as_list_with_instrument_objects()
-        )
+        list_of_current_positions = self.db_strategy_position_data.get_all_current_positions_as_list_with_instrument_objects()
 
         return list_of_current_positions
 

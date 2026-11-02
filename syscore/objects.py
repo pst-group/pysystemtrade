@@ -1,6 +1,7 @@
 """
 Do fun things with objects and classes
 """
+
 from typing import List
 import importlib
 

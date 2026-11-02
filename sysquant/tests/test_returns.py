@@ -6,6 +6,7 @@ See GitHub issue #1644: `_adjust_df_column_for_SR_costs` was flipping the
 sign of an already-negative `daily_SR_cost`, so applying trading costs made
 net returns *higher* than gross returns instead of lower.
 """
+
 import datetime
 import unittest
 

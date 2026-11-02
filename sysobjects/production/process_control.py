@@ -321,8 +321,8 @@ class controlProcess(object):
 
     def as_printable_list(self):
         run_string = self.running_mode_str
-        status_string = f"{''+self.status:<7}"
-        process_id_string = f"{''+str(self.process_id):<8}"
+        status_string = f"{'' + self.status:<7}"
+        process_id_string = f"{'' + str(self.process_id):<8}"
         return [
             "Started %s"
             % date_as_short_pattern_or_question_if_missing(self.last_start_time),

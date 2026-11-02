@@ -1,5 +1,5 @@
 import pandas as pd
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from sysquant.optimisation.pre_processing import returnsPreProcessor
 from sysquant.optimisation.optimise_over_time import optimiseWeightsOverTime
 from sysquant.optimisation.SR_adjustment import adjust_dataframe_of_weights_for_SR_costs

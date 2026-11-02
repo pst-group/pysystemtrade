@@ -2,7 +2,7 @@ from syscore.exceptions import missingData
 from sysdata.production.override import overrideData
 from sysobjects.production.override import Override
 from sysdata.mongodb.mongo_generic import mongoDataWithMultipleKeys
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 OVERRIDE_STATUS_COLLECTION = "overide_status"
 OVERRIDE_TYPE = "dict_name"  # yeah I know but for historical reasons

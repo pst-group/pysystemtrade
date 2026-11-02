@@ -105,7 +105,7 @@ def stacked_df_with_added_time_from_list(data: listOfDataFrames) -> pd.DataFrame
 
     # add on an offset
     for offset_value, data_item in enumerate(aligned_data):
-        data_item.index = data_item.index + pd.Timedelta("%dus" % offset_value)
+        data_item.index = data_item.index.shift(offset_value, freq="us")
 
     # pooled
     # stack everything up

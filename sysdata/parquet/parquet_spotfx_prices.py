@@ -2,7 +2,8 @@ from sysdata.parquet.parquet_access import ParquetAccess
 
 from sysdata.fx.spotfx import fxPricesData
 from sysobjects.spot_fx_prices import fxPrices
-from syslogging.logger import *
+from syslogging import CURRENCY_CODE_LOG_LABEL
+from syslogging.logger import get_logger
 import pandas as pd
 
 SPOTFX_COLLECTION = "spotfx_prices"

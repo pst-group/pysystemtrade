@@ -9,7 +9,8 @@ from sysbrokers.IB.ib_instruments import (
 from syscore.exceptions import missingData, missingInstrument, missingFile
 from syscore.fileutils import resolve_path_and_filename_for_package
 from syscore.genutils import return_another_value_if_nan
-from syslogging.logger import *
+from syslogging import INSTRUMENT_CODE_LOG_LABEL
+from syslogging.logger import get_logger
 from sysobjects.instruments import futuresInstrument
 
 

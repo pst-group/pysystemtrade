@@ -525,9 +525,9 @@ class MRRunner:
     def futures_contract_with_actual_expiry(self) -> futuresContract:
         contract = getattr(self, "_contract_actual_expiry", None)
         if contract is None:
-            contract = (
-                self._contract_actual_expiry
-            ) = self.get_futures_contract_with_actual_expiry()
+            contract = self._contract_actual_expiry = (
+                self.get_futures_contract_with_actual_expiry()
+            )
 
         return contract
 

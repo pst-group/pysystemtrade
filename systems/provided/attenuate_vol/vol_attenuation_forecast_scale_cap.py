@@ -1,6 +1,10 @@
+import numpy as np
+import pandas as pd
+
 from syscore.pandas.strategy_functions import quantile_of_points_in_data_series
 from syscore.pandas.pdutils import from_scalar_values_to_ts
-from systems.forecast_scale_cap import *
+from systems.forecast_scale_cap import ForecastScaleCap
+from systems.system_cache import input, diagnostic
 
 
 class volAttenForecastScaleCap(ForecastScaleCap):

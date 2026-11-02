@@ -4,7 +4,7 @@ import sys
 import socket
 import logging.config
 import syslogging
-from syslogging.adapter import *
+from syslogging.adapter import DynamicAttributeLogger
 from syslogging.filters import IBFilter
 from syslogging.pyyaml_env import parse_config
 from syscore.fileutils import resolve_path_and_filename_for_package

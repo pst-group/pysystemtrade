@@ -8,7 +8,7 @@ from sysdata.arctic.arctic_connection import arcticData
 from sysdata.production.historic_strategy_positions import strategyPositionData
 from syscore.exceptions import missingData
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 STRATEGY_POSITION_COLLECTION = "strategy_positions"
 

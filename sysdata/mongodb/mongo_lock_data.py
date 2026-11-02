@@ -1,7 +1,7 @@
 from syscore.constants import arg_not_supplied
 from sysdata.production.locks import lockData, lock_on
 from sysdata.mongodb.mongo_generic import mongoDataWithSingleKey
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 LOCK_STATUS_COLLECTION = "locks"
 LOCK_DICT_KEY = "lock"

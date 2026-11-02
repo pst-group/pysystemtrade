@@ -1,7 +1,7 @@
 from sysbrokers.IB.client.ib_client_id import ibBrokerClientIdData
 from syscore.constants import arg_not_supplied
 from sysdata.mongodb.mongo_generic import mongoDataWithSingleKey
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 IB_CLIENT_COLLECTION = "IBClientTracker"
 IB_ID_REF = "client_id"

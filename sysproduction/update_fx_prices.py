@@ -8,7 +8,6 @@ from sysdata.data_blob import dataBlob
 from sysproduction.data.currency_data import dataCurrency
 from sysproduction.data.broker import dataBroker
 from syslogdiag.email_via_db_interface import send_production_mail_msg
-from syslogging.logger import *
 
 
 def update_fx_prices():

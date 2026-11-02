@@ -145,12 +145,12 @@ class futuresMultiplePrices(pd.DataFrame):
         self_as_dict = {}
         for price_column_name in list_of_price_column_names:
             contract_column_name = contract_name_from_column_name(price_column_name)
-            self_as_dict[
-                price_column_name
-            ] = futuresNamedContractFinalPricesWithContractID(
-                self[price_column_name],
-                self[contract_column_name],
-                price_column_name=price_column_name,
+            self_as_dict[price_column_name] = (
+                futuresNamedContractFinalPricesWithContractID(
+                    self[price_column_name],
+                    self[contract_column_name],
+                    price_column_name=price_column_name,
+                )
             )
 
         self_as_dict = dictFuturesNamedContractFinalPricesWithContractID(self_as_dict)
@@ -185,9 +185,9 @@ class futuresMultiplePrices(pd.DataFrame):
 
         # Now it's possible we have more price data for some things than others
         # so we forward fill contract_ids; not prices
-        multiple_prices_data_frame[
-            list_of_contract_column_names
-        ] = multiple_prices_data_frame[list_of_contract_column_names].ffill()
+        multiple_prices_data_frame[list_of_contract_column_names] = (
+            multiple_prices_data_frame[list_of_contract_column_names].ffill()
+        )
 
         multiple_prices_object = futuresMultiplePrices(multiple_prices_data_frame)
 

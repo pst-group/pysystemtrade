@@ -16,9 +16,9 @@ class dataFrameOfRecentTicks(pd.DataFrame):
         super().__init__(*args, **kwargs)
         columns = self.columns
 
-        assert set(TICK_REQUIRED_COLUMNS).issubset(
-            columns
-        ), "historical ticks should have columns %s" % str(TICK_REQUIRED_COLUMNS)
+        assert set(TICK_REQUIRED_COLUMNS).issubset(columns), (
+            "historical ticks should have columns %s" % str(TICK_REQUIRED_COLUMNS)
+        )
 
     def average_bid_offer_spread(self, remove_negative=True) -> float:
         return average_bid_offer_spread(self, remove_negative=remove_negative)

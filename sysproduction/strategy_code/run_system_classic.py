@@ -8,6 +8,7 @@ this:
 
 
 """
+
 import datetime
 from syscore.constants import arg_not_supplied
 from syscore.exceptions import missingData
@@ -28,7 +29,7 @@ from sysproduction.data.sim_data import get_sim_data_object_for_production
 
 from sysproduction.data.backtest import store_backtest_state
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from systems.provided.futures_chapter15.basesystem import futures_system
 from systems.basesystem import System

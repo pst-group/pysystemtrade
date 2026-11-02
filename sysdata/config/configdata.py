@@ -13,6 +13,7 @@ trading_rules - a specification of the trading rules for a system
 """
 
 import yaml
+from pathlib import Path
 
 from syscore.exceptions import missingData
 from syscore.fileutils import resolve_path_and_filename_for_package
@@ -22,7 +23,8 @@ from sysdata.config.private_config import (
     get_private_config_as_dict,
 )
 
-from syslogging.logger import *
+from syslogging import STAGE_LOG_LABEL, TYPE_LOG_LABEL
+from syslogging.logger import get_logger
 from sysdata.config.fill_config_dict_with_defaults import fill_config_dict_with_defaults
 
 RESERVED_NAMES = [

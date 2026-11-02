@@ -9,7 +9,7 @@ from sysobjects.contract_dates_and_expiries import listOfContractDateStr
 from sysobjects.futures_per_contract_prices import futuresContractPrices
 from sysobjects.dict_of_futures_per_contract_prices import dictFuturesContractPrices
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 BASE_CLASS_ERROR = "You have used a base class for futures price data; you need to use a class that inherits with a specific data source"
 

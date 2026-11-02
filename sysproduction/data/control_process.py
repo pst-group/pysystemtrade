@@ -84,9 +84,7 @@ class dataControlProcess(productionDataLayerGeneric):
         return list_of_status
 
     def check_if_pid_running_and_if_not_finish_all_processes(self) -> list:
-        list_of_status = (
-            self.db_control_process_data.check_if_pid_running_and_if_not_finish_all_processes()
-        )
+        list_of_status = self.db_control_process_data.check_if_pid_running_and_if_not_finish_all_processes()
 
         return list_of_status
 

@@ -7,7 +7,7 @@ from sysproduction.strategy_code.run_dynamic_optimised_system import (
     runSystemCarryTrendDynamic,
 )
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from systems.basesystem import System
 

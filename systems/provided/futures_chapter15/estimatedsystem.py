@@ -5,6 +5,7 @@ fixed parameters
 A system consists of a system, plus a config
 
 """
+
 from syscore.constants import arg_not_supplied
 from sysdata.sim.csv_futures_sim_data import csvFuturesSimData
 from sysdata.config.configdata import Config

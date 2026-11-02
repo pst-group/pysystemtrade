@@ -3,6 +3,7 @@ Get FX prices from arctic and write to csv
 
 WARNING WILL OVERWRITE EXISTING!
 """
+
 from sysproduction.data.currency_data import fxPricesData
 from sysdata.csv.csv_spot_fx import csvFxPricesData
 

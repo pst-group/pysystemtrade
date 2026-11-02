@@ -18,7 +18,6 @@ from syscore.dateutils import (
     DAILY_PRICE_FREQ,
 )
 
-from syslogging.logger import *
 
 from sysobjects.contracts import futuresContract
 from sysexecution.trade_qty import tradeQuantity

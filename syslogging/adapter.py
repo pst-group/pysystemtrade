@@ -1,6 +1,6 @@
 import logging.config
 
-from syslogdiag.pst_logger import *
+from syslogging import ALLOWED_LOG_ATTRIBUTES
 
 
 class DynamicAttributeLogger(logging.LoggerAdapter):
@@ -56,8 +56,17 @@ class DynamicAttributeLogger(logging.LoggerAdapter):
 
     def _check_attributes(self, attributes: dict):
         if attributes:
-            bad_attributes = get_list_of_disallowed_attributes(attributes)
+            bad_attributes = self._get_list_of_disallowed_attributes(attributes)
             if len(bad_attributes) > 0:
                 raise Exception(
                     "Attributes %s not allowed in log" % str(bad_attributes)
                 )
+
+    def _get_list_of_disallowed_attributes(self, attributes: dict) -> list:
+        attr_keys = list(attributes.keys())
+        not_okay = [
+            attribute_name
+            for attribute_name in attr_keys
+            if attribute_name not in ALLOWED_LOG_ATTRIBUTES
+        ]
+        return not_okay

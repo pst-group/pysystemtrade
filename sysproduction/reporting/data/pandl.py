@@ -86,9 +86,7 @@ class pandlCalculateAndStore(object):
         return strategies_pandl
 
     def get_ranked_list_of_pandl_by_instrument_all_strategies_in_date_range(self):
-        list_pandl = (
-            self.get_period_perc_pandl_for_all_instruments_all_strategies_in_date_range()
-        )
+        list_pandl = self.get_period_perc_pandl_for_all_instruments_all_strategies_in_date_range()
         list_pandl = [pandl for pandl in list_pandl if pandl.pandl != 0]
         list_pandl.sort(key=lambda r: r.pandl)
 

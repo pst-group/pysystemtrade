@@ -4,7 +4,7 @@ from sysdata.production.capital import capitalData
 CAPITAL_COLLECTION = "capital"
 
 from sysdata.parquet.parquet_access import ParquetAccess
-from syslogging.logger import *
+from syslogging.logger import get_logger
 import pandas as pd
 
 

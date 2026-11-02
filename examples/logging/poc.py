@@ -1,4 +1,5 @@
-from syslogging.logger import *
+import logging
+from syslogging.logger import get_logger
 
 # default LoggerAdapter functionality
 first = get_logger("Foo")

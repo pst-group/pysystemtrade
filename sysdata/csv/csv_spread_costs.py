@@ -3,7 +3,7 @@ from sysdata.futures.spread_costs import spreadCostData
 from sysdata.csv.csv_instrument_data import INSTRUMENT_CONFIG_PATH
 from syscore.constants import arg_not_supplied
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 import pandas as pd
 
 

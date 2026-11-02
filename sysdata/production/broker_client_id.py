@@ -1,6 +1,6 @@
 from syscore.constants import arg_not_supplied
 from sysdata.base_data import baseData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class brokerClientIdData(baseData):

@@ -181,7 +181,6 @@ Table of Contents
    * [Reporting, housekeeping and backup scripts](#reporting-housekeeping-and-backup-scripts)
       * [Run all reports](#run-all-reports)
       * [Delete old pickled backtest state objects](#delete-old-pickled-backtest-state-objects)
-      * [Clean up old logs](#clean-up-old-logs)
       * [Truncate echo files](#truncate-echo-files)
       * [Backup DB to CSV files](#backup-db-to-csv-files)
       * [Backup state files](#backup-state-files)
@@ -853,13 +852,13 @@ temp.info("type should be back to 'first'")
 
 ##### Echos
 
-There is some code to clean up **echo** files. This code is run automatically from the [daily cleaning process](#clean-up-old-logs).
+There is some code to clean up **echo** files. This code is run automatically from the [daily cleaning process](#truncate-echo-files).
 
 Python:
 
 ```python
-from sysproduction.clean_truncate_log_files import clean_truncate_log_files
-clean_truncate_log_files()
+from sysproduction.clean_truncate_echo_files import clean_truncate_echo_files
+clean_truncate_echo_files()
 ```
 
 It defaults to deleting anything more than 30 days old.
@@ -1521,7 +1520,7 @@ These are listed here for convenience, but more documentation is given below in 
 
 - run_backups: Runs [backup_db_to_csv](#backup-db-to-csv-files), [backup state files](#backup-state-files): [MongoDB dump backup](#backup-mongodb-dump)
 - run_capital_updates: Runs [update_strategy_capital](#allocate-capital-to-strategies), [update_total_capital](#update-capital-and-pl-by-polling-brokerage-account): update capital
-- run_cleaners: Runs [clean_truncate_backtest_states](#delete-old-pickled-backtest-state-objects), [clean_truncate_echo_files](#truncate-echo-files), [clean_truncate_log_files](#clean-up-old-logs): Clean up
+- run_cleaners: Runs [clean_truncate_backtest_states](#delete-old-pickled-backtest-state-objects), [clean_truncate_echo_files](#truncate-echo-files): Clean up
 - run_daily_price_updates: Runs [update_fx_prices](#get-spot-fx-data-from-interactive-brokers-write-to-parquet-daily), [update_sampled_contracts](#update-sampled-contracts-daily), [update_historical_prices](#update-futures-contract-historical-price-data-daily), [update_multiple_adjusted_prices](#update-multiple-and-adjusted-prices-daily): daily price and contract data updates
 - run_daily_fx_and_contract_updates: Runs [update_fx_prices](#get-spot-fx-data-from-interactive-brokers-write-to-parquet-daily), [update_sampled_contracts](#update-sampled-contracts-daily).
 - run_daily_update_multiple_adjusted_prices: Runs [update_multiple_adjusted_prices](#update-multiple-and-adjusted-prices-daily): daily price and contract data updates
@@ -2391,7 +2390,7 @@ See [reporting](#reporting) for details on individual reports.
 
 Python:
 ```python
-from sysproduction.clean_truncate_backtest_states
+from sysproduction.clean_truncate_backtest_states import clean_truncate_backtest_states
 clean_truncate_backtest_states()
 ```
 
@@ -2405,27 +2404,6 @@ Called by: `run_cleaners`
 Every time run_systems runs it creates a pickled backtest and saves a copy of its configuration file. This makes it easier to use them for [diagnostic purposes](#backtest-objects).
 
 However, these file are large! So we delete anything more than 5 days old.
-
-
-
-### Clean up old logs
-
-
-Python:
-```python
-from sysproduction.clean_truncate_log_files import clean_truncate_log_files
-clean_truncate_log_files()
-```
-
-Linux command line:
-```
-cd $SCRIPT_PATH
-. clean_truncate_log_files
-```
-
-Called by: `run_cleaners`
-
-I love logging! Which does mean there are a lot of log entries. This deletes any that are more than a month old.
 
 ### Truncate echo files
 

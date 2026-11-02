@@ -7,7 +7,7 @@ from sysdata.config.instruments import (
     get_list_of_untradeable_instruments_in_config,
 )
 from sysdata.sim.sim_data import simData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from systems.system_cache import systemCache, base_system_cache
 
 from systems.tools.autogroup import (

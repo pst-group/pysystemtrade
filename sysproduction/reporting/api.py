@@ -444,9 +444,7 @@ class reportingApi(object):
         return pandl_for_instruments_across_strategies
 
     def _get_pandl_for_instruments_across_strategies(self) -> pd.DataFrame:
-        pandl_for_instruments_across_strategies_df = (
-            self.pandl_calculator.get_ranked_list_of_pandl_by_instrument_all_strategies_in_date_range()
-        )
+        pandl_for_instruments_across_strategies_df = self.pandl_calculator.get_ranked_list_of_pandl_by_instrument_all_strategies_in_date_range()
 
         return pandl_for_instruments_across_strategies_df
 

@@ -1,6 +1,6 @@
 from sysdata.base_data import baseData
 from sysdata.data_blob import dataBlob
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class brokerStaticData(baseData):

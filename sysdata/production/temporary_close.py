@@ -1,5 +1,5 @@
 from sysdata.base_data import baseData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from sysobjects.production.position_limits import positionLimitForInstrument
 

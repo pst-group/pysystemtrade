@@ -1,6 +1,7 @@
 """
 Suite of functions to analyse a system, and produce configuration that can be saved to a yaml file
 """
+
 from syscore.dateutils import ROOT_BDAYS_INYEAR
 from systems.forecast_mapping import estimate_mapping_params
 import yaml

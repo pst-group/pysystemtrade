@@ -1,4 +1,4 @@
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from syscore.constants import arg_not_supplied
 

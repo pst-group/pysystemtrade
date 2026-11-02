@@ -12,7 +12,7 @@ from sysobjects.contract_dates_and_expiries import expiryDate, listOfContractDat
 from sysobjects.contracts import futuresContract
 from sysobjects.production.trading_hours.trading_hours import listOfTradingHours
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 
 class ibFuturesContractData(brokerFuturesContractData):

@@ -9,6 +9,7 @@ We then store those multiple prices in: (depending on options)
 - arctic
 - .csv
 """
+
 from syscore.constants import arg_not_supplied
 from sysobjects.dict_of_futures_per_contract_prices import (
     dictFuturesContractFinalPrices,
@@ -57,9 +58,7 @@ def process_multiple_prices_all_instruments(
         _not_used2,
         _not_used3,
     ) = _get_data_inputs(csv_roll_data_path, csv_multiple_data_path)
-    instrument_list = (
-        db_individual_futures_prices.get_list_of_instrument_codes_with_merged_price_data()
-    )
+    instrument_list = db_individual_futures_prices.get_list_of_instrument_codes_with_merged_price_data()
 
     for instrument_code in instrument_list:
         print(instrument_code)

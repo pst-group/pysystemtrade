@@ -21,7 +21,13 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 At the moment, the dashboard provides basic diagnostic "traffic lights" to show status of various system components. The content of the reports is also reproduced.
 
-If you have installed all the Python dependencies listed in the `pyproject.toml` file, the web dashboard is ready to be started:
+The web dashboard has an additional optional dependency on [`flask`](https://flask.palletsprojects.com/en/stable/) - install with:
+
+```
+(pysystemtrade) $ python -m pip install '.[parquet,flask]'
+```
+
+And to run the dashboard:
 
 ```
 cd pysystemtrade/dashboard

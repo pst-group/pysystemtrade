@@ -18,7 +18,8 @@ def commissions_report(
         data = dataBlob()
 
     reporting_api = reportingApi(
-        data, start_date=datetime.datetime.now()  ## not required for this report
+        data,
+        start_date=datetime.datetime.now(),  ## not required for this report
     )
 
     formatted_output = []

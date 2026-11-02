@@ -1,6 +1,6 @@
 from syscore.exceptions import missingData
 from sysdata.mongodb.mongo_generic import mongoDataWithSingleKey
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from sysexecution.order_stacks.order_stack import orderStackData
 from sysexecution.orders.named_order_objects import missing_order

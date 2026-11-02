@@ -1,6 +1,6 @@
 from sysdata.production.roll_state import rollStateData
 from sysdata.mongodb.mongo_generic import mongoDataWithSingleKey
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 ROLL_STATUS_COLLECTION = "futures_roll_status"
 ROLL_KEY = "instrument_code"

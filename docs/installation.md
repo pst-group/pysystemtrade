@@ -32,10 +32,10 @@ Installation instructions for pyenv are here:
 https://github.com/pyenv/pyenv#installation
 
 
-First install Python itself. pysystemtrade currently requires Python 3.10 or newer
+First install Python itself. pysystemtrade currently requires Python 3.11 or newer. We'll use 3.12
 
 ```
-$ pyenv install 3.10
+$ pyenv install 3.12
 ```
 
 Once complete you should be able to see the new version in the output of `pyenv versions`
@@ -43,21 +43,19 @@ Once complete you should be able to see the new version in the output of `pyenv 
 ```
 $ pyenv versions
   system
-  3.7.14
-  3.8.5
-  3.8.6
-  3.8.16
   3.9.6
   3.9.13
-  3.10.4
-* 3.10.15
+  3.11.4
+  3.11.10
+  3.12.4
+* 3.12.5
 ```
 
 Your output will be different, it's just an example
 
 ### venv
 
-https://docs.python.org/3.10/library/venv.html
+https://docs.python.org/3.12/library/venv.html
 
 Now we want to create a virtual environment (venv) for the project. Doing this will keep all the dependencies for pysystemtrade separate from your other Python projects
 
@@ -82,17 +80,17 @@ Once your virtual env is activated, the prompt will change. It will look somethi
 ```
 This reminds you that your venv is active. You can exit the venv at any time by running `deactivate`
 
-Now we will want to let pyenv know that we want to use Python 3.10 for this project
+Now we will want to let pyenv know that we want to use Python 3.12 for this project
 
 ```
-pyenv local 3.10.15
+pyenv local 3.12
 ```
 
-this creates a file at the top level of the project `.python-version` that lets the Python execution environment know to use version 3.10.15. We can check this by running `python`
+this creates a file at the top level of the project `.python-version` that lets the Python execution environment know to use version 3.12. We can check this by running `python`
 
 ```
 $ python
-Python 3.10.15 (main, Nov 27 2023, 11:13:49) [Clang 14.0.0 (clang-1400.0.29.202)]
+Python 3.12.12 (main, Jan 13 2026, 17:48:58) [Clang 21.1.4 ]
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
 < ctrl-D to exit >
@@ -109,75 +107,55 @@ Now it's time to start setting up the venv. First update the basic tools
 And now install the project and its dependencies
 
 ```
-(.venv) $ python -m pip install .
+(.venv) $ python -m pip install '.[parquet]'
 ```
+
+> We need to specify the `parquet` optional dependency because this project still supports storing time series data in an older format. See [here](/docs/backtesting.md#backtesting-with-arctic-instead-of-parquet) for more details
 
 Or, if you intend to contribute to the project, you will need the optional development dependencies too, and will want to install in *editable* mode
 
 ```
-(.venv) $ python -m pip install --editable '.[dev]'
+(.venv) $ python -m pip install --editable '.[parquet,dev]'
 ```
 
 Check what is installed, should look something like
 
 ```
 (.venv) % pip list
-Package           Version 
+Package           Version
 ----------------- ----------- 
-black             23.11.0
-blinker           1.8.2
-click             8.1.7
-contourpy         1.3.0
+aeventkit         2.1.0
+contourpy         1.4.0
 cycler            0.12.1
-decorator         5.1.1
-enum-compat       0.0.3
-eventkit          1.0.3
-exceptiongroup    1.2.2
-Flask             3.0.3
-fonttools         4.54.1
-ib_async          2.0.1
-iniconfig         2.0.0
-itsdangerous      2.2.0
-Jinja2            3.1.4
-joblib            1.4.2
-kiwisolver        1.4.7
-lz4               4.3.3
-MarkupSafe        2.1.5
-matplotlib        3.9.2
-mock              5.1.0
-mockextras        1.0.2
-mypy-extensions   1.0.0
+dnspython         2.8.0
+fonttools         4.66.1
+formulaic         1.2.2
+ib-async          2.1.0
+interface-meta    2.0.1
+kiwisolver        1.5.1
+matplotlib        3.11.2
+narwhals          2.26.0
 nest-asyncio      1.6.0
-numpy             1.26.4
-packaging         24.1
-pandas            2.1.3
-pathspec          0.12.1
-patsy             0.5.6
-pillow            10.4.0
-pip               24.3.1
-platformdirs      4.3.6
-pluggy            1.5.0
-psutil            5.6.7
-pyarrow           17.0.0
-pymongo           3.11.3
-pyparsing         3.1.4
-PyPDF2            3.0.1
-pysystemtrade     1.8.2
-pytest            8.3.3
+numpy             2.5.3
+packaging         26.3
+pandas            2.3.3
+patsy             1.0.3
+pillow            12.3.0
+psutil            7.2.2
+pyarrow           25.0.1
+pymongo           4.18.2
+pyparsing         3.3.3
+pypdf2            3.0.1
+pysystemtrade     1.8.3
 python-dateutil   2.9.0.post0
-pytz              2023.3
-PyYAML            6.0.1
-scikit-learn      1.5.2
-scipy             1.14.1
-setuptools        65.5.0
-six               1.16.0
-statsmodels       0.14.0
-threadpoolctl     3.5.0
-tomli             2.0.1
-typing_extensions 4.12.2
-tzdata            2024.2
-tzlocal           5.2
-Werkzeug          3.0.4
+pytz              2026.4
+pyyaml            6.0.3
+scipy             1.18.1
+six               1.17.0
+statsmodels       0.15.0
+typing-extensions 4.16.0
+tzdata            2025.3
+wrapt             2.5.0
 ```
 
 ## Option 2: uv
@@ -189,92 +167,47 @@ Installation instructions for uv are here:
 https://docs.astral.sh/uv/getting-started/installation/
 
 
-First install Python itself. Pysystemtrade currently requires Python 3.10 or newer
+First install Python itself. Pysystemtrade currently requires Python 3.11 or newer; we'll use 3.12
 
 ```
-$ uv python install 3.10
+$ uv python install 3.12
 ```
 
 Once complete you should be able to see the new version in the output of `uv python list`
 
 ```
-cpython-3.13.1+freethreaded-linux-x86_64-gnu    <download available>
-cpython-3.13.1-linux-x86_64-gnu                 <download available>
-cpython-3.13.0+freethreaded-linux-x86_64-gnu    /home/xxxxx/.local/share/uv/python/cpython-3.13.0+freethreaded-linux-x86_64-gnu/bin/python3.13t
-cpython-3.13.0-linux-x86_64-gnu                 /home/xxxxx/.local/share/uv/python/cpython-3.13.0-linux-x86_64-gnu/bin/python3.13
-cpython-3.12.8-linux-x86_64-gnu                 <download available>
-cpython-3.12.7-linux-x86_64-gnu                 /usr/bin/python3.12
-cpython-3.12.7-linux-x86_64-gnu                 /usr/bin/python3 -> python3.12
-cpython-3.12.7-linux-x86_64-gnu                 /bin/python3.12
-cpython-3.12.7-linux-x86_64-gnu                 /bin/python3 -> python3.12
-cpython-3.12.5-linux-x86_64-gnu                 /home/xxxxx/.local/share/uv/python/cpython-3.12.5-linux-x86_64-gnu/bin/python3.12
-cpython-3.11.11-linux-x86_64-gnu                <download available>
-cpython-3.11.9-linux-x86_64-gnu                 /home/xxxxx/.local/share/uv/python/cpython-3.11.9-linux-x86_64-gnu/bin/python3.11
-cpython-3.10.16-linux-x86_64-gnu                <download available>
-cpython-3.10.15-linux-x86_64-gnu                /home/xxxxx/.local/share/uv/python/cpython-3.10.15-linux-x86_64-gnu/bin/python3.10
-cpython-3.9.21-linux-x86_64-gnu                 <download available>
-cpython-3.9.16-linux-x86_64-gnu                 /usr/bin/python3.9
-cpython-3.9.16-linux-x86_64-gnu                 /usr/bin/python -> /etc/alternatives/python
-cpython-3.9.16-linux-x86_64-gnu                 /bin/python3.9
-cpython-3.9.16-linux-x86_64-gnu                 /bin/python -> /etc/alternatives/python
-cpython-3.8.20-linux-x86_64-gnu                 <download available>
-cpython-3.7.9-linux-x86_64-gnu                  <download available>
-pypy-3.10.14-linux-x86_64-gnu                   <download available>
-pypy-3.9.19-linux-x86_64-gnu                    <download available>
-pypy-3.8.16-linux-x86_64-gnu                    <download available>
-pypy-3.7.13-linux-x86_64-gnu                    <download available>
+cpython-3.15.0rc2-macos-x86_64-none                 <download available>
+cpython-3.14.7-macos-x86_64-none                    /Users/pst/.local/share/uv/python/cpython-3.14-macos-x86_64-none/bin/python3.14
+cpython-3.13.15-macos-x86_64-none                   /Users/pst/.local/share/uv/python/cpython-3.13-macos-x86_64-none/bin/python3.13
+cpython-3.12.14-macos-x86_64-none                   /Users/pst/.local/share/uv/python/cpython-3.12-macos-x86_64-none/bin/python3.12
+cpython-3.11.16-macos-x86_64-none                   /Users/pst/.local/share/uv/python/cpython-3.11-macos-x86_64-none/bin/python3.11
+cpython-3.10.21-macos-x86_64-none                   <download available>
+cpython-3.9.25-macos-x86_64-none                    <download available>
+cpython-3.8.20-macos-x86_64-none                    <download available>
+...
 ```
 
-Now we want to create a virtual environment for the project with Python 3.10 we are using.
+We pin the version of Python we will use for this project
 
 ```
-$ uv venv --python 3.10
+$ uv python pin 3.12
+```
+
+and now install the project. The project will be installed in *editable* mode by default
+
+```
+$ uv sync --extra parquet
 ```
 
 This will create a brand new, isolated Python environment *inside the pysystemtrade project* at the directory
 `<your_path>/pysystemtrade/.venv`.
 
-You will see
-```
-Using CPython 3.10.15
-Creating virtual environment at: .venv
-Activate with: source .venv/bin/activate
-```
+> We need to specify the `parquet` optional dependency because this project still supports storing time series data in an older format. See [here](/docs/backtesting.md#backtesting-with-arctic-instead-of-parquet) for more details
 
-Now activate the virtual environment as instructed.
-```
-source .venv/bin/activate
-```
-
-Once your virtual env is activated, the prompt will change. It will look something like
+If you intend to contribute to the project, you will need the optional development dependencies too
 
 ```
-(pysystemtrade) $
-```
-This reminds you that your virtual environment is active. You can exit the virtual environment at any time by running `deactivate`
-
-We can check this by running `python`
-
-```
-$ python
-Python 3.10.15 (main, Nov 27 2023, 11:13:49) [Clang 14.0.0 (clang-1400.0.29.202)]
-Type "help", "copyright", "credits" or "license" for more information.
->>>
-< ctrl-D to exit >
-```
-
-### dependencies
-
-And now install the project and its dependencies
-
-```
-(pysystemtrade) $ uv pip install .
-```
-
-Or, if you intend to contribute to the project, you will need the optional development dependencies too, and will want to install in *editable* mode
-
-```
-(pysystemtrade) $ uv pip install --editable '.[dev]'
+$ uv sync --extra parquet --extra dev
 ```
 
 Check what is installed, should look something like
@@ -283,57 +216,39 @@ Check what is installed, should look something like
 (pysystemtrade) $ uv pip list
 Package           Version     Editable project location
 ----------------- ----------- ---------------------------------
-black             23.11.0
-blinker           1.9.0
-click             8.1.8
-contourpy         1.3.1
+aeventkit         2.1.0
+contourpy         1.4.0
 cycler            0.12.1
-eventkit          1.0.3
-exceptiongroup    1.2.2
-flask             3.1.0
-fonttools         4.55.8
-ib_async          2.0.1
-iniconfig         2.0.0
-itsdangerous      2.2.0
-jinja2            3.1.5
-joblib            1.4.2
-kiwisolver        1.4.8
-markupsafe        3.0.2
-matplotlib        3.10.0
-mypy-extensions   1.0.0
+dnspython         2.8.0
+fonttools         4.66.1
+formulaic         1.2.2
+ib-async          2.1.0
+interface-meta    2.0.1
+kiwisolver        1.5.1
+matplotlib        3.11.2
+narwhals          2.26.0
 nest-asyncio      1.6.0
-numpy             1.26.4
-packaging         24.2
-pandas            2.1.3
-pathspec          0.12.1
-patsy             1.0.1
-pillow            11.1.0
-pip               25.0
-platformdirs      4.3.6
-pluggy            1.5.0
-psutil            5.6.7
-pyarrow           19.0.0
-pymongo           3.11.3
-pyparsing         3.2.1
+numpy             2.5.3
+packaging         26.3
+pandas            2.3.3
+patsy             1.0.3
+pillow            12.3.0
+psutil            7.2.2
+pyarrow           25.0.1
+pymongo           4.18.2
+pyparsing         3.3.3
 pypdf2            3.0.1
-pysystemtrade     1.8.2       /home/xxxxx/github/pysystemtrade
-pytest            8.3.4
+pysystemtrade     1.8.3       /Users/pst/pysystemtrade
 python-dateutil   2.9.0.post0
-pytz              2023.3
-pyyaml            6.0.1
-scikit-learn      1.6.1
-scipy             1.15.1
-setuptools        75.8.0
+pytz              2026.4
+pyyaml            6.0.3
+scipy             1.18.1
 six               1.17.0
-statsmodels       0.14.0
-threadpoolctl     3.5.0
-tomli             2.2.1
-typing-extensions 4.12.2
-tzdata            2025.1
-werkzeug          3.1.3
+statsmodels       0.15.0
+typing-extensions 4.16.0
+tzdata            2025.3
+wrapt             2.5.0
 ```
-
-
 
 
 ## test

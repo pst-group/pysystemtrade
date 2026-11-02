@@ -3,7 +3,7 @@ from sysobjects.spot_fx_prices import listOfCurrencyValues
 from syscore.constants import arg_not_supplied
 
 from sysdata.production.capital import capitalData
-from syslogging.logger import *
+from syslogging.logger import get_logger
 from sysdata.data_blob import dataBlob
 
 

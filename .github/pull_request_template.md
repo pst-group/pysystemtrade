@@ -32,7 +32,7 @@
 <!--- Put an `x` in all the boxes that apply -->
 - [ ] This PR follows the **CONTRIBUTING** [guide](https://github.com/pst-group/pysystemtrade/blob/develop/CONTRIBUTING.md), including its [AI policy](https://github.com/pst-group/pysystemtrade/blob/develop/CONTRIBUTING.md#ai-policy)
 - [ ] My code follows the code style of this project
-- [ ] I have added tests to cover my changes
+- [ ] I have added tests to cover my changes in pytest format
 - [ ] I have checked that all new and existing tests pass
 - [ ] I have checked that all code quality and formatting checks pass
 - [ ] My branch follows the naming convention `bug-<issue#>-<description>` or `feature-<issue#>-<description>`

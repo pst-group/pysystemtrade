@@ -1,7 +1,7 @@
 from syscore.fileutils import resolve_path_and_filename_for_package
 from syscore.constants import arg_not_supplied
 from sysdata.futures.contracts import futuresContractData, listOfFuturesContracts
-from syslogging.logger import *
+from syslogging.logger import get_logger
 import pandas as pd
 
 

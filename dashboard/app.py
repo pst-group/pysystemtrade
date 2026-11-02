@@ -104,14 +104,14 @@ def liquidity():
 @app.route("/pandl")
 def pandl():
     pandl_data = {}
-    pandl_data[
-        "pandl_for_instruments_across_strategies"
-    ] = reporting_api.table_pandl_for_instruments_across_strategies().Body.to_dict(
-        orient="records"
+    pandl_data["pandl_for_instruments_across_strategies"] = (
+        reporting_api.table_pandl_for_instruments_across_strategies().Body.to_dict(
+            orient="records"
+        )
     )
-    pandl_data[
-        "strategies"
-    ] = reporting_api.table_strategy_pandl_and_residual().Body.to_dict(orient="records")
+    pandl_data["strategies"] = (
+        reporting_api.table_strategy_pandl_and_residual().Body.to_dict(orient="records")
+    )
     pandl_data["sector_pandl"] = reporting_api.table_sector_pandl().Body.to_dict(
         orient="records"
     )

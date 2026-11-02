@@ -4,7 +4,7 @@ from sysobjects.production.tradeable_object import (
     listOfInstrumentStrategies,
     instrumentStrategy,
 )
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 POSITION_LIMIT_STATUS_COLLECTION = "position_limit_status"
 

@@ -262,7 +262,7 @@ def _calculate_change_in_daily_units(data_to_check: pd.Series) -> pd.Series:
      for example, a change of 0.5 over half a day would be equal to a change of 0.5/sqrt(0.5) = 0.7 over a day
       a change of 2.0 over 5 days, would be equal to a change of 2/sqrt(5) = 0.89 a day
     >>> data_to_check1 = pd.Series([1,1,2], pd.date_range(datetime.datetime(2000,1,1), periods=3))
-    >>> data_to_check2 = pd.Series([4,1,8], pd.date_range(datetime.datetime(2000,1,6), periods=3, freq="H"))
+    >>> data_to_check2 = pd.Series([4,1,8], pd.date_range(datetime.datetime(2000,1,6), periods=3, freq="h"))
     >>> data_to_check = pd.concat([data_to_check1, data_to_check2], axis=0)
     >>> _calculate_change_in_daily_units(data_to_check)
     2000-01-02 00:00:00     0.000000

@@ -11,6 +11,7 @@ ALl return Tx1 pd.Series, where a value of 1 is the original capital
 See https://qoppac.blogspot.com/2016/06/capital-correction-pysystemtrade.html for more details
 
 """
+
 from copy import copy
 import pandas as pd
 import numpy as np

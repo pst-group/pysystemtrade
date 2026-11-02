@@ -39,7 +39,7 @@ def safely_modify_roll_parameters(data: dataBlob):
 
     output_path_for_temp_csv_files = input(
         "Path for writing roll calendar and roll parameters; must be absolute with leading "
-        "\ or / eg /home/rob/pysystemtrade/data/futures/roll_calendars_csv/? "
+        "\\ or / eg /home/rob/pysystemtrade/data/futures/roll_calendars_csv/? "
     )
     build_and_write_roll_calendar(
         instrument_code,

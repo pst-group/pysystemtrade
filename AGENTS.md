@@ -10,8 +10,8 @@ This file provides guidance to AI agents working with this repository.
 
 ### Install
 ```bash
-# Editable install with dev dependencies
-python -m pip install --editable '.[dev]'
+# Editable install with parquet and dev optional dependencies
+python -m pip install --editable '.[parquet,dev]'
 ```
 
 ### Testing
@@ -31,10 +31,16 @@ pytest --runslow
 
 Test paths are explicitly listed in `pyproject.toml` under `[tool.pytest.ini_options]`. Doctests are enabled for modules (`--doctest-modules`). The `examples/` directory is excluded from test collection.
 
-### Linting / Formatting
+### Formatting
+
 ```bash
-# Format with Black (version pinned to 23.11.0 per pyproject.toml)
-black . --exclude '/.venv\/.+/'
+ruff format
+```
+
+### Linting
+
+```bash
+ruff check
 ```
 
 ## Architecture
@@ -165,7 +171,6 @@ These processes run during trading hours, concurrently, looping constantly at va
 
 - `run_capital_update` (updates the trading capital, constantly changing due to instrument price fluctuation)
 - `run_stack_handler` (executes trades, maintains local state)
-- `run_monitor` (monitors the processes, reports status to an internal dashboard)
 
 This process executes once only
 

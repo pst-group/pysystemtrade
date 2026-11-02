@@ -11,7 +11,11 @@ from sysexecution.orders.base_orders import (
     orderType,
 )
 from sysexecution.orders.named_order_objects import no_order_id, no_children, no_parent
-from syslogging.logger import *
+from syslogging import (
+    INSTRUMENT_CODE_LOG_LABEL,
+    INSTRUMENT_ORDER_ID_LABEL,
+    STRATEGY_NAME_LOG_LABEL,
+)
 
 from sysobjects.production.tradeable_object import instrumentStrategy
 

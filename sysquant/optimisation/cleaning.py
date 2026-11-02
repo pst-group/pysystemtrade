@@ -68,9 +68,9 @@ def clean_list_of_weights(
     :returns: list of float
 
     >>> clean_list_of_weights([1.0, np.nan, np.nan], fraction=1.0)
-    [0.33333333333333337, 0.33333333333333331, 0.33333333333333331]
+    [0.33333333333333337, 0.3333333333333333, 0.3333333333333333]
     >>> clean_list_of_weights([0.4, 0.6, np.nan],  fraction=1.0)
-    [0.26666666666666672, 0.40000000000000002, 0.33333333333333331]
+    [0.2666666666666667, 0.4, 0.3333333333333333]
     >>> clean_list_of_weights([0.4, 0.6, np.nan],  fraction=0.5)
     [0.33333333333333337, 0.5, 0.16666666666666666]
     >>> clean_list_of_weights([np.nan, np.nan, 1.0],  must_haves=[False,True,True], fraction=1.0)
@@ -134,6 +134,6 @@ def clean_list_of_weights(
 
     # This process will screw up weights - let's fix them
     xsum = sum(weights)
-    weights = [x / xsum for x in weights]
+    weights = [float(x / xsum) for x in weights]
 
     return weights

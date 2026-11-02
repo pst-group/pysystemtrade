@@ -3,6 +3,7 @@ Created on 30 Nov 2015
 
 @author: rob
 """
+
 import unittest
 from systems.provided.rules.ewmac import ewmac_forecast_with_defaults
 from systems.forecasting import (

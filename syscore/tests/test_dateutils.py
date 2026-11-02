@@ -3,6 +3,7 @@ Created on 27 Nov 2015
 
 @author: rob
 """
+
 import unittest as ut
 import pandas as pd
 
@@ -32,7 +33,7 @@ class Test(ut.TestCase):
             )
         )
 
-        return x
+        assert len(x) == 7
 
 
 if __name__ == "__main__":

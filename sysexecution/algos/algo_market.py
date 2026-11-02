@@ -1,6 +1,7 @@
 """
 Simplest possible execution method, one market order
 """
+
 from copy import copy
 import time
 from sysexecution.orders.named_order_objects import missing_order

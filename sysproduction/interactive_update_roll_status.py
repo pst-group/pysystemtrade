@@ -4,6 +4,7 @@ Roll adjusted and multiple prices for a given contract, after checking that we d
 NOTE: this does not update the roll calendar .csv files stored elsewhere. Under DRY the sole source of production
   roll info is the multiple prices series
 """
+
 from dataclasses import dataclass
 import numpy as np
 

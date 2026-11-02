@@ -2,7 +2,7 @@ from sysdata.parquet.parquet_access import ParquetAccess
 
 from sysdata.futures.spreads import spreadsForInstrumentData
 from sysobjects.spreads import spreadsForInstrument
-from syslogging.logger import *
+from syslogging.logger import get_logger
 import pandas as pd
 
 SPREAD_COLLECTION = "spreads"

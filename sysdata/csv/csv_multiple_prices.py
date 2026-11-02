@@ -12,7 +12,7 @@ from syscore.fileutils import (
 from syscore.pandas.pdutils import pd_readcsv
 from syscore.genutils import str_of_int
 from syscore.constants import arg_not_supplied
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 CSV_MULTIPLE_PRICE_DIRECTORY = "data.futures.multiple_prices_csv"
 DATE_INDEX_NAME = "DATETIME"

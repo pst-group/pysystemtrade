@@ -19,7 +19,7 @@ from sysdata.tools.manual_price_checker import manual_price_checker
 from sysdata.tools.cleaner import priceFilterConfig, get_config_for_price_filtering
 
 from syslogdiag.email_via_db_interface import send_production_mail_msg
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 from sysobjects.contracts import futuresContract
 from sysobjects.futures_per_contract_prices import futuresContractPrices

@@ -5,8 +5,26 @@ on: [push, pull_request]
 jobs:
   lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.12" ]
     steps:
-      - uses: actions/checkout@v4
-      - uses: psf/black@stable
+      - uses: actions/checkout@v6
+
+      - name: Install uv and setup Python
+        uses: astral-sh/setup-uv@v7
         with:
-          version: "23.11.0"
+          version: "0.12.23"
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          uv sync --extra dev --extra parquet --extra flask 
+
+      - name: Check formatting with 'ruff format'
+        uses: astral-sh/ruff-action@v4.1.0
+        with:
+            args: "format --check --diff"
+
+      - name: Linting with 'ruff check'
+        uses: astral-sh/ruff-action@v4.1.0

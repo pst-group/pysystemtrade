@@ -49,25 +49,33 @@ $ git clone https://github.com/pst-group/pysystemtrade.git
 # navigate to the project directory
 $ cd pysystemtrade
 
-# either install pysystemtrade normally
-$ python -m pip install .
+```
 
-# or install in editable mode, with development dependencies 
-$ python -m pip install --editable '.[dev]'
+then install with `uv` (recommended)
+
+```
+# either install pysystemtrade only
+$ uv sync --extra parquet
+
+# or with development dependencies (editable mode by default) 
+$ uv sync --extra parquet --extra dev
+```
+
+or with `pip`
+
+```
+# either install pysystemtrade only
+$ python -m pip install '.[parquet]'
+
+# or with development dependencies, in editable mode 
+$ python -m pip install --editable '.[parquet, dev]'
 ```
 
 There is a more complete installation guide [here](docs/installation.md)
 
 ### A note on support
 
-This is an open source project, designed for people who are already comfortable using and writing python code, are capable of installing the dependencies, and who want a head start on implementing a system of their own.  If you need a higher level of support then you are better off with another project. The most efficient way of getting support is by [opening an issue on github](https://github.com/pst-group/pysystemtrade/issues/new). If you discover a bug please include:
-
-- The full script that produces the error, including all `import` statements, or if it's a standard example file a pointer to the file. Ideally this should be a "minimal example" - the shortest possible script that produces the problem.
-- Versions of any necessary libraries you have installed
-- The full output trace including the error messages
-
-If you have a question like 'how to do X' or 'should we do Y' use the [discussions board](https://github.com/pst-group/pysystemtrade/discussions), not the error reporting. Offers to contribute will of course be gratefully accepted.
-
+This is an open source project, designed for people who are already comfortable using and writing python code, are capable of installing the dependencies, and who want a head start on implementing a system of their own.  If you need a higher level of support then you are better off with another project. If you have a question, or find a problem, read the [contribution guide](CONTRIBUTING.md) to understand the processes.
 
 ## Licensing and legal stuff
 

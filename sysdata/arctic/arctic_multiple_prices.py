@@ -2,6 +2,7 @@
 Read and write data from mongodb for 'multiple prices'
 
 """
+
 import pandas as pd
 from sysdata.arctic.arctic_connection import arcticData
 from sysdata.futures.multiple_prices import (
@@ -12,7 +13,7 @@ from sysobjects.dict_of_named_futures_per_contract_prices import (
     list_of_price_column_names,
     contract_name_from_column_name,
 )
-from syslogging.logger import *
+from syslogging.logger import get_logger
 
 MULTIPLE_COLLECTION = "futures_multiple_prices"
 

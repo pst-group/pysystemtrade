@@ -373,9 +373,9 @@ get_upper_buffer = configForMethod(
 def get_stage_breakdown_over_codes(backtest: interactiveBacktest, method_list: list):
     value_dict = {}
     for config_for_method in method_list:
-        value_dict[
-            config_for_method.name
-        ] = get_list_of_values_by_instrument_for_config(backtest, config_for_method)
+        value_dict[config_for_method.name] = (
+            get_list_of_values_by_instrument_for_config(backtest, config_for_method)
+        )
 
     instrument_codes = backtest.system.get_instrument_list()
     value_df = pd.DataFrame(value_dict, index=instrument_codes)

@@ -9,7 +9,7 @@ import datetime
 from sysdata.base_data import baseData
 from syscore.pandas.merge_data_keeping_past_data import SPIKE_IN_DATA
 
-from syslogging.logger import *
+from syslogging import CURRENCY_CODE_LOG_LABEL
 from sysobjects.spot_fx_prices import fxPrices, get_fx_tuple_from_code, DEFAULT_CURRENCY
 
 DEFAULT_DATES = pd.date_range(

@@ -10,7 +10,7 @@ from sysdata.data_blob import dataBlob
 from sysexecution.orders.list_of_orders import listOfOrders
 from sysexecution.orders.instrument_orders import instrumentOrder
 from sysexecution.order_stacks.instrument_order_stack import zeroOrderException
-from syslogging.logger import *
+from syslogging import INSTRUMENT_ORDER_ID_LABEL
 from sysproduction.data.positions import diagPositions
 from sysproduction.data.instruments import diagInstruments
 from sysproduction.data.orders import dataOrders

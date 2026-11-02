@@ -1,6 +1,7 @@
 """
 Utilities to help with pandas
 """
+
 import pandas as pd
 import datetime
 
@@ -80,7 +81,7 @@ def get_index_of_columns_in_df_with_at_least_one_value(df: pd.DataFrame) -> List
     [True, True, False]
     """
 
-    return list(~df.isna().all().values)
+    return (~df.isna().all()).tolist()
 
 
 def pd_readcsv(

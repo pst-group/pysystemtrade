@@ -1,6 +1,7 @@
 """
 Utilities I can't put anywhere else...
 """
+
 from typing import Union
 import datetime
 import functools

@@ -324,14 +324,14 @@ def _build_all_price_data(set_of_price_data, contract_date_info):
         carry_name,
     ]
 
-    all_price_data[
-        contract_name_from_column_name(price_name)
-    ] = contract_date_info.current_contract
-    all_price_data[
-        contract_name_from_column_name(forward_name)
-    ] = contract_date_info.next_contract
-    all_price_data[
-        contract_name_from_column_name(carry_name)
-    ] = contract_date_info.carry_contract
+    all_price_data[contract_name_from_column_name(price_name)] = (
+        contract_date_info.current_contract
+    )
+    all_price_data[contract_name_from_column_name(forward_name)] = (
+        contract_date_info.next_contract
+    )
+    all_price_data[contract_name_from_column_name(carry_name)] = (
+        contract_date_info.carry_contract
+    )
 
     return all_price_data

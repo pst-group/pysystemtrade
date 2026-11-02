@@ -214,20 +214,21 @@ def _find_dates_when_series_starts_matching(
 
     series must be matched for index and same length
 
-    >>> s1=pd.Series(["a", "b", "b", "b"], index=[1,2,3,4])
-    >>> s2=pd.Series(["c", "b", "b", "b"], index=[1,2,3,4])
+    >>> idx=pd.date_range(datetime.datetime(2000,1,1), periods=4)
+    >>> s1=pd.Series(["a", "b", "b", "b"], index=idx)
+    >>> s2=pd.Series(["c", "b", "b", "b"], index=idx)
     >>> _find_dates_when_series_starts_matching(s1, s2)
-    (2, 1)
-    >>> s2=pd.Series(["a", "a", "b", "b"], index=[1,2,3,4])
+    (Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'))
+    >>> s2=pd.Series(["a", "a", "b", "b"], index=idx)
     >>> _find_dates_when_series_starts_matching(s1, s2)
-    (3, 2)
-    >>> s2=pd.Series(["a", "b", "a", "b"], index=[1,2,3,4])
+    (Timestamp('2000-01-03 00:00:00'), Timestamp('2000-01-02 00:00:00'))
+    >>> s2=pd.Series(["a", "b", "a", "b"], index=idx)
     >>> _find_dates_when_series_starts_matching(s1, s2)
-    (4, 3)
-    >>> s2=pd.Series(["a", "b", "b", "b"], index=[1,2,3,4])
+    (Timestamp('2000-01-04 00:00:00'), Timestamp('2000-01-03 00:00:00'))
+    >>> s2=pd.Series(["a", "b", "b", "b"], index=idx)
     >>> _find_dates_when_series_starts_matching(s1, s2)
     all labels match
-    >>> s2=pd.Series(["a", "b", "b", "c"], index=[1,2,3,4])
+    >>> s2=pd.Series(["a", "b", "b", "c"], index=idx)
     >>> _find_dates_when_series_starts_matching(s1, s2)
     MISMATCH_ON_LAST_DAY
 

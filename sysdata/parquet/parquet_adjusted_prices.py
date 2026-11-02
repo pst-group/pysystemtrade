@@ -4,7 +4,7 @@ from sysdata.futures.adjusted_prices import (
 )
 from sysobjects.adjusted_prices import futuresAdjustedPrices
 
-from syslogging.logger import *
+from syslogging.logger import get_logger
 import pandas as pd
 
 ADJPRICE_COLLECTION = "futures_adjusted_prices"

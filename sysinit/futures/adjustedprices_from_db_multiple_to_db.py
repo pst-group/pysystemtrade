@@ -4,6 +4,7 @@ We create adjusted prices using multiple prices stored in database
 We then store those adjusted prices in database and/or csv
 
 """
+
 from syscore.constants import arg_not_supplied
 from sysdata.csv.csv_adjusted_prices import csvFuturesAdjustedPricesData
 
