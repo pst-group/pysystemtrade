@@ -1,5 +1,6 @@
 import numpy as np
 import datetime
+import time
 
 from syscontrol.report_process_status import reportStatus
 from syscontrol.timer_parameters import timerClassParameters
@@ -234,14 +235,14 @@ class timerClassWithFunction(object):
         self.log_msg(log_msg)
 
         self._last_heartbeat = datetime.datetime.now()
+        self._last_heartbeat_monotonic = time.monotonic()
 
     def minutes_since_last_run(self) -> float:
-        when_last_run = self.when_last_run()
-        time_now = datetime.datetime.now()
-        delta = time_now - when_last_run
-        delta_minutes = delta.total_seconds() / 60.0
+        last_run = getattr(self, "_last_run_monotonic", None)
+        if last_run is None:
+            return np.inf
 
-        return delta_minutes
+        return (time.monotonic() - last_run) / 60.0
 
     def when_last_run(self) -> datetime.datetime:
         when_last_run = getattr(self, "_last_run", A_LONG_LONG_TIME_AGO)
@@ -249,12 +250,11 @@ class timerClassWithFunction(object):
         return when_last_run
 
     def minutes_since_last_heartbeat(self) -> float:
-        when_last_beat = self.when_last_heartbeat()
-        time_now = datetime.datetime.now()
-        delta = time_now - when_last_beat
-        delta_minutes = delta.total_seconds() / 60.0
+        last_heartbeat = getattr(self, "_last_heartbeat_monotonic", None)
+        if last_heartbeat is None:
+            return np.inf
 
-        return delta_minutes
+        return (time.monotonic() - last_heartbeat) / 60.0
 
     def when_last_heartbeat(self):
         when_last_heartbeat = getattr(self, "_last_heartbeat", A_LONG_LONG_TIME_AGO)
@@ -284,6 +284,7 @@ class timerClassWithFunction(object):
 
     def set_time_of_last_run(self):
         self._last_run = datetime.datetime.now()
+        self._last_run_monotonic = time.monotonic()
 
     def store_in_db_run_start_method(self):
         data_process = dataControlProcess(self.data)
