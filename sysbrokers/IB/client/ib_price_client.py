@@ -238,6 +238,9 @@ class ibPriceClient(ibContractsClient):
         """
 
         timestamp = self._adjust_ib_time_to_local(timestamp_ib)
+        if isinstance(timestamp_ib, datetime.datetime):
+            # intraday bar: a bar starting at local midnight must keep its time
+            return pd.to_datetime(timestamp)
 
         adjusted_ts = replace_midnight_with_notional_closing_time(timestamp)
 
