@@ -87,7 +87,7 @@ class tradeLimit(object):
     def trade_capacity_remaining(self) -> int:
         trades_since_last_reset = self.trades_since_last_reset
         limit = self.trade_limit
-        spare_capacity = limit - trades_since_last_reset
+        spare_capacity = max(0, limit - trades_since_last_reset)
 
         return spare_capacity
 
